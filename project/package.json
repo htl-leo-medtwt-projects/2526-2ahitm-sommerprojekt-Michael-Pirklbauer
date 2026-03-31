@@ -1,0 +1,34 @@
+{
+  "name": "last-signal",
+  "version": "1.0.0",
+  "description": "“Last Signal” is a browser-based interactive sci-fi strategy game where players manage a failing space station, make branching decisions, and solve logical challenges to survive and achieve one of multiple possible endings.",
+  "keywords": [
+    "Interactive",
+    "story",
+    "sci-fi",
+    "strategy",
+    "resource",
+    "management",
+    "branching",
+    "decisions"
+  ],
+  "homepage": "https://github.com/htl-leo-medtwt-projects/2526-2ahitm-sommerprojekt-Michael-Pirklbauer#readme",
+  "bugs": {
+    "url": "https://github.com/htl-leo-medtwt-projects/2526-2ahitm-sommerprojekt-Michael-Pirklbauer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htl-leo-medtwt-projects/2526-2ahitm-sommerprojekt-Michael-Pirklbauer.git"
+  },
+  "license": "ISC",
+  "author": "Michael Pirklbauer",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "gsap": "^3.14.2",
+    "siriwave": "^2.4.0"
+  }
+}
