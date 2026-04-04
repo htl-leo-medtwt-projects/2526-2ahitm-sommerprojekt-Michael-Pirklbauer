@@ -13,8 +13,159 @@
     src: url(../fonts/futura-pt-book.otf);
 }
 
+:root {
+    --color-text: #ffffff;
+    --color-background: #000000;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    font-family: "Futura PT Book", "Inter", sans-serif;
+    background-color: black;
+    color: white;
+}
+
+/* Default style overrides */
+button,
+input {
+    border: none;
+    outline: none;
+    background: none;
+    color: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Components */
+.window {
+    border-radius: 2.1875rem 0;
+    border: 0.0625rem solid rgba(255, 255, 255, 0.20);
+    background: rgba(0, 140, 255, 0.44);
+    box-shadow: 0.0625rem 0.0625rem 0.25rem 0 rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(0.25rem);
+}
+
+.button {
+    font-family: "Futura PT Book", sans-serif;
+    font-size: 1.75rem;
+    padding: 0.625rem 1.25rem;
+    cursor: pointer;
+    border-radius: 10rem;
+    text-align: center;
+}
+
+.slider {
+    width: 15rem;
+    height: 2.1875rem;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10rem;
+}
+
+.mask {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+.fill {
+    height: 100%;
+    width: 0%;
+    background-color: white;
+    border-radius: inherit;
+}
+
+.thumb {
+    width: 2.1875rem;
+    aspect-ratio: 1/1;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    transform: translateX(0);
+    will-change: transform;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Landing Page */
+#landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 2rem;
+}
+
+#landing-page h1 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 5rem;
+    text-align: center;
+}
+
+#landing-page .button {
+    color: black;
+    background-color: white;
+}
+
+/* Settings Page */
+#settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 3rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../images/background-1.jpg);
+    background-position: center left;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#settings h1 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 4rem;
+    padding: 1rem 2rem;
+}
+
+#settings>div {
+    padding: 3rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#settings h2 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 2.75rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.settings-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1rem;
+    column-gap: 10rem;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+}
+
+.settings-section p:hover {
+    cursor: pointer;
 }

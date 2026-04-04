@@ -7,11 +7,56 @@
     <title>Last Signal</title>
     <link rel="shortcut icon" href="./images/favicon.png" type="image/png">
     <link rel="stylesheet" href="./css/style.css">
-    <script type="module" src="./js/script.js" defer></script>
+    <script type="module" src="./js/script.js"></script>
 </head>
 
 <body>
+    <div id="landing-page">
+        <h1>Last Signal</h1>
+        <button class="button window" id="start-button">Start Game</button>
+        <button class="button" id="settings-button">Settings</button>
+        <button class="button" id="achievements-button">Achievements</button>
+    </div>
+    
+    <div id="settings" class="hidden">
+        <h1 class="window">Settings</h1>
+        <div class="window">
+            <h2>Audio</h2>
+            <div class="settings-section">
+                <h3>Music</h3>
+                <div class="slider">
+                    <div class="mask">
+                        <div class="fill"></div>
+                    </div>
+                    <div class="thumb"></div>
+                </div>
+                <h3>Sound Effects</h3>
+                <div class="slider">
+                    <div class="mask">
+                        <div class="fill"></div>
+                    </div>
+                    <div class="thumb"></div>
+                </div>
+                <h3>Voice Acting</h3>
+                <div class="slider">
+                    <div class="mask">
+                        <div class="fill"></div>
+                    </div>
+                    <div class="thumb"></div>
+                </div>
+            </div>
 
+            <h2>Story</h2>
+            <div class="settings-section">
+                <h3>Text Speed</h3>
+                <p>Fast</p>
+                <h3>Text Size</h3>
+                <p>Medium</p>
+                <h3>Autosave</h3>
+                <p>Enabled</p>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
