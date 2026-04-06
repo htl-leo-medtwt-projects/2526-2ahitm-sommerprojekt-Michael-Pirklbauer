@@ -169,3 +169,174 @@ a {
 .settings-section p:hover {
     cursor: pointer;
 }
+
+/* Achievements Page */
+#achievements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 3rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../images/background-1.jpg);
+    background-position: center left;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#achievements h1 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 4rem;
+    padding: 1rem 2rem;
+}
+
+#achievements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.achivement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.achivement svg {
+    width: 6rem;
+    aspect-ratio: 1/1;
+    fill: white;
+    border-radius: 12rem;
+    border: 0.25rem solid white;
+    padding: 0.5rem;
+}
+
+.achivement div {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.achivement div h2 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.achivement div p {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.achivement div h3 {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Game Page */
+#game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 3rem;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../images/background-1.jpg);
+    background-position: center left;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    width: 55%;
+    position: absolute;
+    bottom: 5%;
+}
+
+#text-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+#text-container h2 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 2rem;
+}
+
+#text-container div {
+    height: 0.2rem;
+    background-color: white;
+    border-radius: 10rem;
+    width: 100%;
+}
+
+#text-container p {
+    font-size: 1.35rem;
+    padding: 0.5rem 1rem;
+    text-align: center;
+}
+
+#button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+    width: calc(100% + 3.5rem);
+}
+
+#status-system {
+    position: absolute;
+    top: 5%;
+    left: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.status-item svg {
+    width: 2.5rem;
+    aspect-ratio: 1/1;
+    fill: white;
+}
+
+#soundwave-container {
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    padding: 1rem;
+}
+
+#soundwave-container h2 {
+    text-align: center;
+}
+
+#soundwave-container span {
+    letter-spacing: 0.3ch;
+    margin-right: -0.2ch;
+}
+
+#soundwave-container canvas {
+    display: block;
+    width: 25rem;
+    height: 9.375rem;
+}
