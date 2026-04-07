@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "checkJs": false,
+    "module": "nodenext",
+    "target": "esnext",
+    "moduleResolution": "nodenext",
+  },
+  "include": ["./js/**/*.js"]
+}
