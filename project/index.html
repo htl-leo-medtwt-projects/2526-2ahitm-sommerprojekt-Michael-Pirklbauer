@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="./images/favicon.png" type="image/png">
     <link rel="stylesheet" href="./css/style.css">
     <script type="module" src="./js/script.js"></script>
+    <script type="module" src="./js/range-slider.js"></script>
 </head>
 
 <body>
@@ -24,26 +25,11 @@
             <h2>Audio</h2>
             <div class="settings-section">
                 <h3>Music</h3>
-                <div class="slider">
-                    <div class="mask">
-                        <div class="fill"></div>
-                    </div>
-                    <div class="thumb"></div>
-                </div>
+                <range-slider min="0" max="1" step="0.01" value="0.55"></range-slider>
                 <h3>Sound Effects</h3>
-                <div class="slider">
-                    <div class="mask">
-                        <div class="fill"></div>
-                    </div>
-                    <div class="thumb"></div>
-                </div>
+                <range-slider min="0" max="1" step="0.01" value="0.55"></range-slider>
                 <h3>Voice Acting</h3>
-                <div class="slider">
-                    <div class="mask">
-                        <div class="fill"></div>
-                    </div>
-                    <div class="thumb"></div>
-                </div>
+                <range-slider min="0" max="1" step="0.01" value="0.55"></range-slider>
             </div>
 
             <h2>Story</h2>
@@ -89,24 +75,14 @@
                         79.5-217.5T400-880q132 112 209.5 212T710-480h-83q-22-63-79-137T400-774Q281-665 220.5-573T160-408q0 96 
                         55.5 163.5T360-163v81Zm34-326Z" />
                 </svg>
-                <div class="slider">
-                    <div class="mask">
-                        <div class="fill"></div>
-                    </div>
-                    <div class="thumb"></div>
-                </div>
+                <range-slider value="100"></range-slider>
             </div>
             <div class="status-item">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                     <path d="m422-232 207-248H469l29-227-185 267h139l-30 208ZM320-80l40-280H160l360-520h80l-40 
                         320h240L400-80h-80Zm151-390Z" />
                 </svg>
-                <div class="slider">
-                    <div class="mask">
-                        <div class="fill"></div>
-                    </div>
-                    <div class="thumb"></div>
-                </div>
+                <range-slider value="100"></range-slider>
             </div>
             <div class="status-item">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -117,12 +93,7 @@
                         16l-40 30 40 68 46-20q5 5 11.5 9t14.5 7l6 50Zm-2.5-117.5Q420-495 420-520t17.5-42.5Q455-580 480-580t42.5 17.5Q540-545 
                         540-520t-17.5 42.5Q505-460 480-460t-42.5-17.5Z" />
                 </svg>
-                <div class="slider">
-                    <div class="mask">
-                        <div class="fill"></div>
-                    </div>
-                    <div class="thumb"></div>
-                </div>
+                <range-slider value="100"></range-slider>
             </div>
             <div class="status-item">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
@@ -131,12 +102,7 @@
                         28v447h360v80H80Zm585-320h150l-75-174-75 174Zm-520 0h150l-75-174-75 174Zm335-280q17 0 28.5-11.5T520-760q0-17-11.5-28.5T480-800q-17
                         0-28.5 11.5T440-760q0 17 11.5 28.5T480-720Z" />
                 </svg>
-                <div class="slider">
-                    <div class="mask">
-                        <div class="fill"></div>
-                    </div>
-                    <div class="thumb"></div>
-                </div>
+                <range-slider value="100"></range-slider>
             </div>
         </div>
 
