@@ -14,9 +14,9 @@
 <body>
     <div id="landing-page">
         <h1>Last Signal</h1>
-        <button class="button" id="start-button" type="button">Start Game</button>
-        <button class="button" id="settings-button" type="button">Settings</button>
-        <button class="button" id="achievements-button" type="button">Achievements</button>
+        <button class="button" data-route="/game" type="button">Start Game</button>
+        <button class="button" data-route="/settings" type="button">Settings</button>
+        <button class="button" data-route="/achievements" type="button">Achievements</button>
     </div>
 
     <div id="settings" class="hidden">
@@ -25,21 +25,21 @@
             <h2>Audio</h2>
             <div class="settings-section">
                 <h3>Music</h3>
-                <range-slider min="0" max="1" step="0.01" value="0.55"></range-slider>
+                <range-slider min="0" max="1" step="0.01" value="0.55" data-setting="musicVolume"></range-slider>
                 <h3>Sound Effects</h3>
-                <range-slider min="0" max="1" step="0.01" value="0.55"></range-slider>
+                <range-slider min="0" max="1" step="0.01" value="0.55" data-setting="sfxVolume"></range-slider>
                 <h3>Voice Acting</h3>
-                <range-slider min="0" max="1" step="0.01" value="0.55"></range-slider>
+                <range-slider min="0" max="1" step="0.01" value="0.55" data-setting="voiceVolume"></range-slider>
             </div>
 
             <h2>Story</h2>
             <div class="settings-section">
                 <h3>Text Speed</h3>
-                <p>Fast</p>
+                <button data-value="1.0" data-setting="textSpeed" type="button">Normal</button>
                 <h3>Text Size</h3>
-                <p>Medium</p>
+                <button data-value="16.0" data-setting="textSize" type="button">Medium</button>
                 <h3>Autosave</h3>
-                <p>Enabled</p>
+                <button data-value="true" data-setting="autosave" type="button">Enabled</button>
             </div>
         </div>
     </div>

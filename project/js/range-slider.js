@@ -1,4 +1,4 @@
-// ChatGPT generated code, modiefied by Michael Pirklbauer
+// ChatGPT generated code, modified by Michael Pirklbauer
 class RangeSlider extends HTMLElement {
     #sliderElement;
     #fillElement;
@@ -224,6 +224,7 @@ class RangeSlider extends HTMLElement {
 
         this.#value = newValue;
 
+        this.setAttribute("value", this.#value);
         this.#updateUI();
         this.#emit();
     }
@@ -238,6 +239,7 @@ class RangeSlider extends HTMLElement {
         }
 
         this.#value = this.#clamp(this.#snap(newValue));
+        this.setAttribute("value", this.#value);
         this.#updateUI();
         this.#emit();
     }
@@ -252,6 +254,7 @@ class RangeSlider extends HTMLElement {
         }
 
         this.#min = newValue;
+        this.setAttribute("min", this.#min);
         this.value = this.#value;
     }
 
@@ -265,6 +268,7 @@ class RangeSlider extends HTMLElement {
         }
 
         this.#max = newValue;
+        this.setAttribute("max", this.#max);
         this.value = this.#value;
     }
 
@@ -278,6 +282,7 @@ class RangeSlider extends HTMLElement {
         }
 
         this.#step = newValue;
+        this.setAttribute("step", this.#step);
         this.value = this.#value;
     }
 
