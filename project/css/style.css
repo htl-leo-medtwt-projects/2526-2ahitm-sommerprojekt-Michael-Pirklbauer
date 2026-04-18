@@ -72,6 +72,29 @@ range-slider {
     --slider-color: rgba(0, 0, 0, 0.5);
     --slider-radius: 10rem;
     --thumb-size: 2.1875rem;
+    position: relative;
+}
+
+range-slider::after {
+    content: attr(value) "%";
+    font-size: 1.35rem;
+    position: absolute;
+    text-align: center;
+    display: inherit;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.65);
+    border-radius: 10rem;
+    padding: 0 0.25rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s cubic-bezier(0.05, 0, 0, 1);
+}
+
+range-slider:hover::after {
+    opacity: 1;
+    visibility: visible;
 }
 
 .hidden {
@@ -97,6 +120,18 @@ range-slider {
 #landing-page .button {
     color: black;
     background-color: white;
+}
+
+#landing-page video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    filter: brightness(0.5);
 }
 
 /* Settings Page */
@@ -143,11 +178,18 @@ range-slider {
     font-size: 1.75rem;
 }
 
+.settings-section range-slider::after {
+    content: attr(data-hover) "%";
+}
+
 .settings-section button {
     padding: 0 0.5rem;
+    margin: auto;
     border-radius: 10rem;
-    width: fit-content;
+    width: 8rem;
+    text-align: center;
     transition: background-color 0.2s cubic-bezier(0.05, 0, 0, 1);
+    border: 0.15rem solid white;
 }
 
 .settings-section button:hover {
@@ -285,6 +327,29 @@ range-slider {
 
 #button-container .button {
     max-width: calc((100% + 3.5rem) / 2);
+    transition: transform 0.2s cubic-bezier(0.05, 0, 0, 1);
+}
+
+#button-container .button:hover {
+    transform: scale(1.015);
+    border: 0.15rem solid rgb(255, 255, 255);
+}
+
+#button-container .button::after {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    content: "";
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: inherit;
+    transition: opacity 0.2s cubic-bezier(0.05, 0, 0, 1);
+}
+
+#button-container .button:hover::after {
+    opacity: 1;
 }
 
 #status-system {
@@ -304,7 +369,7 @@ range-slider {
     gap: 0.25rem;
 }
 
-.status-item range-slider {
+.status-item range-slider::part(slider) {
     pointer-events: none;
 }
 

@@ -241,7 +241,6 @@ class RangeSlider extends HTMLElement {
         this.#value = this.#clamp(this.#snap(newValue));
         this.setAttribute("value", this.#value);
         this.#updateUI();
-        this.#emit();
     }
 
     get min() {

@@ -66,6 +66,7 @@ function getNextValue(key, currentValue) {
 function renderSettingElement(element, value) {
     if (isRangeSlider(element)) {
         element.value = value;
+        element.dataset.hover = Math.round(value * 100);
     } else {
         element.dataset.value = value;
         element.textContent = VALUE_MAP[value];
@@ -103,9 +104,7 @@ function setupSettings() {
                 cycle: !isSlider,
             });
 
-            if (!isSlider) {
-                renderSettingElement(element, value);
-            }
+            renderSettingElement(element, value);
         });
     }
 }
