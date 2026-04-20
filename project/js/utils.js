@@ -30,8 +30,21 @@ function loadJsonFromLocalStorage(key) {
     return jsonData ? JSON.parse(jsonData) : {};
 }
 
+/**
+ * Parses an HTML string into a DOM element or array of elements
+ * @param {string} htmlString 
+ * @returns {Element | Element[]}
+ */
+function parseHTML(htmlString) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, "text/html");
+    const elements = Array.from(doc.body.children);
+    return elements.length === 1 ? elements[0] : elements;
+}
+
 export {
     stringToBinary,
     saveJsonToLocalStorage,
     loadJsonFromLocalStorage,
+    parseHTML,
 }

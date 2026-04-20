@@ -1,0 +1,158 @@
+{
+    "start": {
+        "title": "The Awakening",
+        "text": [
+            "You wake up alone on a damaged space station drifting in silence. Emergency alarms pulse through the corridors as oxygen levels drop into critical range.",
+            "Something is wrong with the station’s core systems. A faint unknown signal repeats in the background, interfering with normal diagnostics."
+        ],
+        "choices": [
+            {
+                "text": "Check life support systems immediately",
+                "stats": {
+                    "oxygen": 8,
+                    "energy": -4,
+                    "mentalHealth": -2,
+                    "stability": 3
+                },
+                "next": "systemsRoom"
+            },
+            {
+                "text": "Investigate the unknown signal",
+                "stats": {
+                    "oxygen": -3,
+                    "energy": -3,
+                    "mentalHealth": -6,
+                    "stability": 2
+                },
+                "next": "signalDeck"
+            },
+            {
+                "text": "Activate emergency oxygen rationing",
+                "stats": {
+                    "oxygen": 10,
+                    "energy": -5,
+                    "mentalHealth": -4,
+                    "stability": -3
+                },
+                "next": "rationing"
+            }
+        ]
+    },
+    "systemsRoom": {
+        "title": "In the Heart of the Station",
+        "text": [
+            "You enter the maintenance corridor. The lights flicker violently as the station struggles to maintain power distribution.",
+            "Diagnostic screens show multiple failing subsystems. Life support instability is escalating faster than expected."
+        ],
+        "choices": [
+            {
+                "text": "Prioritize oxygen system repairs",
+                "stats": {
+                    "oxygen": 12,
+                    "energy": -6,
+                    "mentalHealth": -2,
+                    "stability": 5
+                },
+                "next": "start"
+            },
+            {
+                "text": "Redirect power from non-essential systems",
+                "stats": {
+                    "oxygen": 5,
+                    "energy": -3,
+                    "mentalHealth": 0,
+                    "stability": 7
+                },
+                "next": "start"
+            },
+            {
+                "text": "Return to the central hub",
+                "stats": {
+                    "oxygen": -1,
+                    "energy": 1,
+                    "mentalHealth": 2,
+                    "stability": -2
+                },
+                "next": "start"
+            }
+        ]
+    },
+    "signalDeck": {
+        "title": "Signal Disruption",
+        "text": [
+            "You arrive at the communications deck. A repeating unknown signal pulses through every speaker and console.",
+            "The station AI behaves erratically, flagging the signal as both a threat and a priority. System logs begin to distort."
+        ],
+        "choices": [
+            {
+                "text": "Attempt to decode the signal",
+                "stats": {
+                    "oxygen": -3,
+                    "energy": -4,
+                    "mentalHealth": -8,
+                    "stability": 3
+                },
+                "next": "start"
+            },
+            {
+                "text": "Ignore the signal and stabilize systems",
+                "stats": {
+                    "oxygen": 6,
+                    "energy": -3,
+                    "mentalHealth": 1,
+                    "stability": 6
+                },
+                "next": "systemsRoom"
+            },
+            {
+                "text": "Consult the station AI about the anomaly",
+                "stats": {
+                    "oxygen": -1,
+                    "energy": -3,
+                    "mentalHealth": -4,
+                    "stability": -5
+                },
+                "next": "start"
+            }
+        ]
+    },
+    "rationing": {
+        "title": "Oxygen Rationing Protocol",
+        "text": [
+            "Emergency oxygen rationing protocols are activated. Airflow across the station becomes noticeably restricted.",
+            "The environment grows more tense as automated systems redistribute remaining resources. Every decision now has immediate survival consequences."
+        ],
+        "choices": [
+            {
+                "text": "Maintain strict rationing and lock overrides",
+                "stats": {
+                    "oxygen": 15,
+                    "energy": -7,
+                    "mentalHealth": -4,
+                    "stability": 2
+                },
+                "next": "systemsRoom"
+            },
+            {
+                "text": "Loosen restrictions to reduce stress",
+                "stats": {
+                    "oxygen": -6,
+                    "energy": 3,
+                    "mentalHealth": 6,
+                    "stability": -4
+                },
+                "next": "start"
+            },
+            {
+                "text": "Focus on repairing oxygen systems",
+                "stats": {
+                    "oxygen": 8,
+                    "energy": -4,
+                    "mentalHealth": 1,
+                    "stability": 4
+                },
+                "next": "systemsRoom"
+            }
+        ]
+    }
+}

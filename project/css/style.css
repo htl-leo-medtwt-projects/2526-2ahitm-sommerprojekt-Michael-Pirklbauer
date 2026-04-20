@@ -302,7 +302,7 @@ range-slider:hover::after {
     font-size: 2rem;
 }
 
-#text-container>div {
+#dividing-line {
     height: 0.2rem;
     background-color: white;
     border-radius: 10rem;
@@ -315,6 +315,14 @@ range-slider:hover::after {
     text-align: center;
     font-kerning: none;
     text-rendering: optimizeSpeed;
+}
+
+#loading-indicator {
+    width: 0.65rem;
+    aspect-ratio: 1/1;
+    border-radius: 0.1rem;
+    transform: rotate(45deg);
+    background-color: white;
 }
 
 #button-container {
