@@ -1,20 +1,42 @@
 import gsap from "gsap";
 
 const ROUTES = Object.freeze({
-    "/": "landing-page",
-    "/settings": "settings",
-    "/achievements": "achievements",
-    "/game": "game"
+    "/": {
+        id: "landing-page",
+        title: "Last Signal",
+        showNavigation: false,
+    },
+    "/settings": {
+        id: "settings",
+        title: "Last Signal - Settings",
+        showNavigation: true,
+    },
+    "/achievements": {
+        id: "achievements",
+        title: "Last Signal - Achievements",
+        showNavigation: true,
+    },
+    "/game": {
+        id: "game",
+        title: "Last Signal - Game",
+        showNavigation: true,
+    }
 });
 
+const navigationElement = document.getElementById("navigation");
 let currentPage = null;
 let isNavigating = false;
 
-function showPage(next) {
+function showPage(next, showNavigation) {
     return new Promise(resolve => {
-        next.classList.remove("hidden");
+        const elements = showNavigation ? [next, navigationElement] : [next];
 
-        gsap.fromTo(next,
+        next.classList.remove("hidden");
+        if (showNavigation) {
+            navigationElement.classList.remove("hidden");
+        }
+
+        gsap.fromTo(elements,
             {
                 opacity: 0,
                 y: 20
@@ -24,21 +46,26 @@ function showPage(next) {
                 y: 0,
                 duration: 0.35,
                 ease: "power2.out",
-                onComplete: () => resolve(),
+                onComplete: () => resolve()
             }
         );
     });
 }
 
-function hidePage(current) {
+function hidePage(current, showNavigation) {
     return new Promise(resolve => {
-        gsap.to(current, {
+        const elements = !showNavigation ? [current, navigationElement] : [current];
+
+        gsap.to(elements, {
             opacity: 0,
             y: -20,
             duration: 0.25,
             ease: "power2.in",
             onComplete: () => {
                 current.classList.add("hidden");
+                if (!showNavigation) {
+                    navigationElement.classList.add("hidden");
+                }
                 resolve();
             }
         });
@@ -51,8 +78,8 @@ async function navigate(path, pushState = true) {
     }
     isNavigating = true;
 
-    const id = ROUTES[path] || ROUTES["/"];
-    const nextPage = document.getElementById(id);
+    const route = ROUTES[path] || ROUTES["/"];
+    const nextPage = document.getElementById(route.id);
 
     if (currentPage === nextPage) {
         isNavigating = false;
@@ -60,11 +87,12 @@ async function navigate(path, pushState = true) {
     }
 
     if (currentPage) {
-        await hidePage(currentPage);
+        await hidePage(currentPage, route.showNavigation);
     }
 
-    await showPage(nextPage);
+    await showPage(nextPage, route.showNavigation);
     currentPage = nextPage;
+    document.title = route.title;
 
     if (pushState) {
         history.pushState({}, "", path);
@@ -90,15 +118,21 @@ function setupNavigation() {
     });
 
     const path = window.location.pathname;
-    const id = ROUTES[path] || ROUTES["/"];
+    const route = ROUTES[path] || ROUTES["/"];
 
     document.querySelectorAll("body > div").forEach(element => {
         element.classList.add("hidden");
     });
 
-    const startPage = document.getElementById(id);
+    const startPage = document.getElementById(route.id);
     startPage.classList.remove("hidden");
+    if (route.showNavigation) {
+        navigationElement.classList.remove("hidden");
+    } else {
+        navigationElement.classList.add("hidden");
+    }
     currentPage = startPage;
+    document.title = route.title;
 }
 
 export {
