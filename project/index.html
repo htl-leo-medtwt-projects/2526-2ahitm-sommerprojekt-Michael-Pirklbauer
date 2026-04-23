@@ -24,7 +24,7 @@
 
     <div id="settings" class="hidden">
         <h1 class="window">Settings</h1>
-        <div class="window">
+        <div id="settings-container">
             <h2>Audio</h2>
             <div class="settings-section">
                 <h3>Music</h3>
@@ -44,6 +44,8 @@
                 <h3>Autosave</h3>
                 <button data-value="true" data-setting="autosave" type="button">Enabled</button>
             </div>
+
+            <div class="window window-overlay"></div>
         </div>
     </div>
 
@@ -69,44 +71,54 @@
     </div>
 
     <div id="game" class="hidden">
-        <div id="status-system" class="window">
+        <div id="status-system">
             <div class="status-item" data-stat="oxygen">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                    <path d="M480-160q-17 0-28.5-11.5T440-200v-160q0-17 11.5-28.5T480-400h100q17 0 28.5 11.5T620-360v160q0 17-11.5
+                <div data-hover="Oxygen">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M480-160q-17 0-28.5-11.5T440-200v-160q0-17 11.5-28.5T480-400h100q17 0 28.5 11.5T620-360v160q0 17-11.5
                         28.5T580-160H480Zm20-60h60v-120h-60v120ZM680-80v-110q0-17 11.5-28.5T720-230h80v-30H680v-60h140q17 0 
                         28.5 11.5T860-280v70q0 17-11.5 28.5T820-170h-80v30h120v60H680Zm-320-2Q237-96 158.5-187.5T80-408q0-100 
                         79.5-217.5T400-880q132 112 209.5 212T710-480h-83q-22-63-79-137T400-774Q281-665 220.5-573T160-408q0 96 
                         55.5 163.5T360-163v81Zm34-326Z" />
-                </svg>
+                    </svg>
+                </div>
                 <range-slider value="100"></range-slider>
             </div>
             <div class="status-item" data-stat="energy">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                    <path d="m422-232 207-248H469l29-227-185 267h139l-30 208ZM320-80l40-280H160l360-520h80l-40 
+                <div data-hover="Energy">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="m422-232 207-248H469l29-227-185 267h139l-30 208ZM320-80l40-280H160l360-520h80l-40 
                         320h240L400-80h-80Zm151-390Z" />
-                </svg>
+                    </svg>
+                </div>
                 <range-slider value="100"></range-slider>
             </div>
             <div class="status-item" data-stat="mentalHealth">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                    <path d="M240-80v-172q-57-52-88.5-121.5T120-520q0-150 105-255t255-105q125 0 221.5 73.5T827-615l52 205q5 19-7 
+                <div data-hover="Mental Health">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M240-80v-172q-57-52-88.5-121.5T120-520q0-150 105-255t255-105q125 0 221.5 73.5T827-615l52 205q5 19-7 
                         34.5T840-360h-80v120q0 33-23.5 56.5T680-160h-80v80h-80v-160h160v-200h108l-38-155q-23-91-98-148t-172-57q-116 
                         0-198 81t-82 197q0 60 24.5 114t69.5 96l26 24v208h-80Zm254-360Zm-54 80h80l6-50q8-3 14.5-7t11.5-9l46 20 40-68-40-30q2-8 
                         2-16t-2-16l40-30-40-68-46 20q-5-5-11.5-9t-14.5-7l-6-50h-80l-6 50q-8 3-14.5 7t-11.5 9l-46-20-40 68 40 30q-2 8-2 16t2 
                         16l-40 30 40 68 46-20q5 5 11.5 9t14.5 7l6 50Zm-2.5-117.5Q420-495 420-520t17.5-42.5Q455-580 480-580t42.5 17.5Q540-545 
                         540-520t-17.5 42.5Q505-460 480-460t-42.5-17.5Z" />
-                </svg>
+                    </svg>
+                </div>
                 <range-slider value="100"></range-slider>
             </div>
             <div class="status-item" data-stat="stability">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-                    <path d="M80-120v-80h360v-447q-26-9-45-28t-28-45H240l120 280q0 50-41 85t-99 35q-58 0-99-35t-41-85l120-280h-80v-80h247q12-35 
+                <div data-hover="Stability">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M80-120v-80h360v-447q-26-9-45-28t-28-45H240l120 280q0 50-41 85t-99 35q-58 0-99-35t-41-85l120-280h-80v-80h247q12-35 
                         43-57.5t70-22.5q39 0 70 22.5t43 57.5h247v80h-80l120 280q0 50-41 85t-99 35q-58 0-99-35t-41-85l120-280H593q-9 26-28 45t-45 
                         28v447h360v80H80Zm585-320h150l-75-174-75 174Zm-520 0h150l-75-174-75 174Zm335-280q17 0 28.5-11.5T520-760q0-17-11.5-28.5T480-800q-17
                         0-28.5 11.5T440-760q0 17 11.5 28.5T480-720Z" />
-                </svg>
+                    </svg>
+                </div>
                 <range-slider value="100"></range-slider>
             </div>
+
+            <div class="window window-overlay"></div>
         </div>
 
         <div id="soundwave-container" class="window">
@@ -132,7 +144,7 @@
         </div>
     </div>
 
-    <div id="navigation" class="window hidden">
+    <div id="navigation" class="hidden">
         <button type="button" data-route="/" data-hover="Home">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                 <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
@@ -171,6 +183,8 @@
                 <path d="M640-200 200-480l440-280v560Zm-80-280Zm0 134v-268L350-480l210 134Z" />
             </svg>
         </button>
+
+        <div class="window window-overlay"></div>
     </div>
 </body>
 
