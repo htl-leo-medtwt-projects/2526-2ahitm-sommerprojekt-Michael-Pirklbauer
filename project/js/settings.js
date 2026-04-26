@@ -9,7 +9,7 @@ const DEFAULT_SETTINGS = Object.freeze({
     sfxVolume: 0.55,
     voiceVolume: 0.55,
     textSpeed: 1.0,
-    textSize: 16.0,
+    autoplay: true,
     autosave: true,
 });
 
@@ -22,16 +22,13 @@ const VALUE_MAP = Object.freeze({
     0.5: "Slow",
     1.0: "Normal",
     2.0: "Fast",
-    14.0: "Small",
-    16.0: "Medium",
-    18.0: "Large",
     true: "Enabled",
     false: "Disabled"
 });
 
 const VALUE_CYCLES = Object.freeze({
     textSpeed: [0.5, 1.0, 2.0],
-    textSize: [14, 16, 18],
+    autoplay: [true, false],
     autosave: [true, false],
 });
 

@@ -114,7 +114,12 @@ function setupNavigation() {
     });
 
     window.addEventListener("popstate", () => {
-        navigate(window.location.pathname, false);
+        const path = ROUTES[window.location.pathname] ? window.location.pathname : "/";
+        navigate(path, false);
+    });
+
+    document.querySelector("#back-button").addEventListener("click", () => {
+        history.back();
     });
 
     const path = window.location.pathname;
@@ -126,11 +131,7 @@ function setupNavigation() {
 
     const startPage = document.getElementById(route.id);
     startPage.classList.remove("hidden");
-    if (route.showNavigation) {
-        navigationElement.classList.remove("hidden");
-    } else {
-        navigationElement.classList.add("hidden");
-    }
+    navigationElement.classList.toggle("hidden", !route.showNavigation);
     currentPage = startPage;
     document.title = route.title;
 }
