@@ -1,9 +1,10 @@
 import storyData from "../data/story.json" with { type: "json" };
 import gsap from "gsap";
-import SplitText from "gsap/src/SplitText";
+import SplitText from "gsap/SplitText";
 import {
     loadJsonFromLocalStorage,
-    parseHTML
+    parseHTML,
+    saveJsonToLocalStorage
 } from "./utils.js";
 
 gsap.registerPlugin(SplitText);
@@ -89,7 +90,7 @@ function animateChoices(choicesElements) {
 }
 
 function handleChoice(choice) {
-    updateStats(choice.stats);
+    updateStatElements(choice.stats);
     const nextNode = choice.next;
     currentNode = storyData[nextNode];
 
@@ -109,22 +110,37 @@ function handleChoice(choice) {
 }
 
 function updateStats(newStats) {
+    for (const [key, value] of Object.entries(newStats)) {
+        if (Object.hasOwn(STATS, key)) {
+            STATS[key] += newStats[key];
+        }
+    }
+
+    saveJsonToLocalStorage("stats", STATS);
+}
+
+function renderStatElements() {
     const statElements = document.querySelectorAll("[data-stat]");
 
     for (const element of statElements) {
         const statName = element.dataset.stat;
-
-        STATS[statName] += newStats[statName];
         const slider = element.querySelector("range-slider");
 
-        gsap.fromTo(slider, {
-            duration: 0.5,
-            ease: "power1.out",
-            value: slider.value,
-        }, {
-            value: STATS[statName],
-        })
+        animateSlider(slider, STATS[statName]);
     }
+}
+
+function animateSlider(slider, value) {
+    gsap.to(slider, {
+        duration: 0.5,
+        ease: "power1.out",
+        value,
+    });
+}
+
+function updateStatElements(newStats) {
+    updateStats(newStats);
+    renderStatElements();
 }
 
 async function displayStoryNode() {
@@ -135,5 +151,6 @@ async function displayStoryNode() {
 
 export {
     STATS,
+    renderStatElements,
     displayStoryNode,
 }
