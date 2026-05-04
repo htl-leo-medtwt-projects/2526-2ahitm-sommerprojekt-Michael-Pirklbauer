@@ -22,15 +22,32 @@ const STATS = Object.seal({
     ...loadJsonFromLocalStorage("stats")
 });
 
-let currentNode = storyData.start;
+const DEFAULT_PROGRESS = Object.freeze({
+    currentNode: "start",
+    currentLine: 0,
+    seenNodes: [],
+    choicesMade: [],
+});
+
+const PROGRESS = Object.seal({
+    ...DEFAULT_PROGRESS,
+    ...loadJsonFromLocalStorage("progress")
+});
+
+let currentNode = storyData[PROGRESS.currentNode];
 let currentTween = null;
 let resolveAdvance = null;
 
 async function renderText(lines) {
     const textElement = document.querySelector("#text-container p");
 
-    for (let i = 0; i < lines.length; i++) {
+    for (let i = PROGRESS.currentLine; i < lines.length; i++) {
         textElement.textContent = lines[i];
+
+        PROGRESS.currentLine = i;
+        if (SETTINGS.autosave) {
+            saveJsonToLocalStorage("progress", PROGRESS);
+        }
 
         await animateText(textElement);
 
@@ -50,7 +67,7 @@ async function animateText(textElement) {
 
         currentTween = gsap.from(split.chars, {
             opacity: 0,
-            stagger: 0.03 * SETTINGS.textSpeed,
+            stagger: 0.03 / SETTINGS.textSpeed,
             onComplete: () => {
                 split.revert();
                 currentTween = null;
@@ -149,6 +166,17 @@ function handleChoice(choice) {
     const nextNode = choice.next;
     currentNode = storyData[nextNode];
 
+    PROGRESS.seenNodes.push(PROGRESS.currentNode);
+    PROGRESS.choicesMade.push({
+        node: PROGRESS.currentNode,
+        choice: storyData[PROGRESS.currentNode].choices.findIndex(c => Object.is(c, choice))
+    });
+    PROGRESS.currentNode = nextNode;
+    PROGRESS.currentLine = 0;
+    if (SETTINGS.autosave) {
+        saveJsonToLocalStorage("progress", PROGRESS);
+    }
+
     const buttons = document.querySelectorAll("#button-container button");
     gsap.to(buttons, {
         opacity: 0,
@@ -171,7 +199,9 @@ function updateStats(newStats) {
         }
     }
 
-    saveJsonToLocalStorage("stats", STATS);
+    if (SETTINGS.autosave) {
+        saveJsonToLocalStorage("stats", STATS);
+    }
 }
 
 function renderStatElements() {
@@ -206,6 +236,7 @@ async function displayStoryNode() {
 
 export {
     STATS,
+    PROGRESS,
     renderStatElements,
     setupInputListeners,
     displayStoryNode,
