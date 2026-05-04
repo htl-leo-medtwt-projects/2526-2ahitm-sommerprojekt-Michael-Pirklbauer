@@ -3,36 +3,36 @@
         "title": "The Awakening",
         "text": [
             "You wake up alone on a damaged space station drifting in silence. Emergency alarms pulse through the corridors as oxygen levels drop into critical range.",
-            "Something is wrong with the station’s core systems. A faint unknown signal repeats in the background, interfering with normal diagnostics."
+            "Something is wrong with the station's core systems. A faint unknown signal repeats in the background, interfering with normal diagnostics."
         ],
         "choices": [
             {
                 "text": "Check life support systems immediately",
                 "stats": {
-                    "oxygen": 8,
-                    "energy": -4,
-                    "mentalHealth": -2,
-                    "stability": 3
+                    "oxygen": 20,
+                    "energy": -10,
+                    "mentalHealth": -5,
+                    "stability": 8
                 },
                 "next": "systemsRoom"
             },
             {
                 "text": "Investigate the unknown signal",
                 "stats": {
-                    "oxygen": -3,
-                    "energy": -3,
-                    "mentalHealth": -6,
-                    "stability": 2
+                    "oxygen": -8,
+                    "energy": -8,
+                    "mentalHealth": -15,
+                    "stability": 5
                 },
                 "next": "signalDeck"
             },
             {
                 "text": "Activate emergency oxygen rationing",
                 "stats": {
-                    "oxygen": 10,
-                    "energy": -5,
-                    "mentalHealth": -4,
-                    "stability": -3
+                    "oxygen": 25,
+                    "energy": -12,
+                    "mentalHealth": -10,
+                    "stability": -8
                 },
                 "next": "rationing"
             }
@@ -48,32 +48,32 @@
             {
                 "text": "Prioritize oxygen system repairs",
                 "stats": {
-                    "oxygen": 12,
-                    "energy": -6,
-                    "mentalHealth": -2,
-                    "stability": 5
+                    "oxygen": 30,
+                    "energy": -15,
+                    "mentalHealth": -5,
+                    "stability": 12
                 },
-                "next": "start"
+                "next": "advancedRepairs"
             },
             {
                 "text": "Redirect power from non-essential systems",
                 "stats": {
-                    "oxygen": 5,
-                    "energy": -3,
+                    "oxygen": 12,
+                    "energy": -8,
                     "mentalHealth": 0,
-                    "stability": 7
+                    "stability": 15
                 },
-                "next": "start"
+                "next": "powerRedirection"
             },
             {
-                "text": "Return to the central hub",
+                "text": "Ignore warnings and attempt emergency AI reset",
                 "stats": {
-                    "oxygen": -1,
-                    "energy": 1,
-                    "mentalHealth": 2,
-                    "stability": -2
+                    "oxygen": -5,
+                    "energy": -20,
+                    "mentalHealth": -12,
+                    "stability": -15
                 },
-                "next": "start"
+                "next": "signalTakeover"
             }
         ]
     },
@@ -81,38 +81,38 @@
         "title": "Signal Disruption",
         "text": [
             "You arrive at the communications deck. A repeating unknown signal pulses through every speaker and console.",
-            "The station AI behaves erratically, flagging the signal as both a threat and a priority. System logs begin to distort."
+            "The station AI behaves erratically, flagging the signal as both a threat and a priority."
         ],
         "choices": [
             {
                 "text": "Attempt to decode the signal",
                 "stats": {
-                    "oxygen": -3,
-                    "energy": -4,
-                    "mentalHealth": -8,
-                    "stability": 3
+                    "oxygen": -8,
+                    "energy": -10,
+                    "mentalHealth": -20,
+                    "stability": 8
                 },
-                "next": "start"
+                "next": "signalTakeover"
             },
             {
                 "text": "Ignore the signal and stabilize systems",
                 "stats": {
-                    "oxygen": 6,
-                    "energy": -3,
-                    "mentalHealth": 1,
-                    "stability": 6
+                    "oxygen": 15,
+                    "energy": -8,
+                    "mentalHealth": 3,
+                    "stability": 15
                 },
                 "next": "systemsRoom"
             },
             {
-                "text": "Consult the station AI about the anomaly",
+                "text": "Send a distress call before stabilizing",
                 "stats": {
-                    "oxygen": -1,
-                    "energy": -3,
-                    "mentalHealth": -4,
-                    "stability": -5
+                    "oxygen": 5,
+                    "energy": -6,
+                    "mentalHealth": 8,
+                    "stability": 5
                 },
-                "next": "start"
+                "next": "distressCall"
             }
         ]
     },
@@ -120,39 +120,232 @@
         "title": "Oxygen Rationing Protocol",
         "text": [
             "Emergency oxygen rationing protocols are activated. Airflow across the station becomes noticeably restricted.",
-            "The environment grows more tense as automated systems redistribute remaining resources. Every decision now has immediate survival consequences."
+            "The environment grows more tense as automated systems redistribute remaining resources."
         ],
         "choices": [
             {
                 "text": "Maintain strict rationing and lock overrides",
                 "stats": {
-                    "oxygen": 15,
-                    "energy": -7,
-                    "mentalHealth": -4,
-                    "stability": 2
+                    "oxygen": 35,
+                    "energy": -18,
+                    "mentalHealth": -10,
+                    "stability": 5
                 },
-                "next": "systemsRoom"
+                "next": "advancedRepairs"
             },
             {
                 "text": "Loosen restrictions to reduce stress",
                 "stats": {
-                    "oxygen": -6,
-                    "energy": 3,
-                    "mentalHealth": 6,
-                    "stability": -4
+                    "oxygen": -15,
+                    "energy": 8,
+                    "mentalHealth": 15,
+                    "stability": -10
                 },
-                "next": "start"
+                "next": "oxygenDepletion"
             },
             {
                 "text": "Focus on repairing oxygen systems",
                 "stats": {
-                    "oxygen": 8,
-                    "energy": -4,
-                    "mentalHealth": 1,
-                    "stability": 4
+                    "oxygen": 20,
+                    "energy": -10,
+                    "mentalHealth": 3,
+                    "stability": 10
                 },
-                "next": "systemsRoom"
+                "next": "advancedRepairs"
             }
         ]
+    },
+    "advancedRepairs": {
+        "title": "Critical Repairs in Progress",
+        "text": [
+            "You dedicate yourself to the most critical system repairs. Power surges ripple through the station as you bypass damaged components.",
+            "The core reactor begins to stabilize, but the strain is immense. Warning indicators flash across every screen."
+        ],
+        "choices": [
+            {
+                "text": "Push the reactor to maximum output",
+                "stats": {
+                    "oxygen": 20,
+                    "energy": 40,
+                    "mentalHealth": -8,
+                    "stability": -25
+                },
+                "next": "stationExplosion"
+            },
+            {
+                "text": "Carefully stabilize at normal levels",
+                "stats": {
+                    "oxygen": 15,
+                    "energy": 20,
+                    "mentalHealth": 5,
+                    "stability": 20
+                },
+                "next": "stabilizedStation"
+            },
+            {
+                "text": "Implement optimal efficiency protocols",
+                "stats": {
+                    "oxygen": 25,
+                    "energy": 15,
+                    "mentalHealth": 8,
+                    "stability": 25
+                },
+                "next": "perfectBalance"
+            }
+        ]
+    },
+    "powerRedirection": {
+        "title": "Power Redistribution Complete",
+        "text": [
+            "You successfully redirect power from non-essential systems. The station hums with renewed energy.",
+            "Life support stabilizes for now, but you're acutely aware this is only a temporary measure. Longer-term problems remain."
+        ],
+        "choices": [
+            {
+                "text": "Attempt full signal suppression",
+                "stats": {
+                    "oxygen": 10,
+                    "energy": -15,
+                    "mentalHealth": -10,
+                    "stability": 15
+                },
+                "next": "stabilizedStation"
+            },
+            {
+                "text": "Contact external rescue teams",
+                "stats": {
+                    "oxygen": 8,
+                    "energy": -5,
+                    "mentalHealth": 20,
+                    "stability": 10
+                },
+                "next": "distressCall"
+            }
+        ]
+    },
+    "distressCall": {
+        "title": "Distress Signal Transmitted",
+        "text": [
+            "Your distress call broadcasts across all channels. For long moments, there is only silence and the hum of dying systems.",
+            "Then, a response crackles through the static—a rescue vessel is en route. Estimated time: 6 hours. You must keep the station alive until then."
+        ],
+        "choices": [
+            {
+                "text": "Focus on maintaining current systems",
+                "stats": {
+                    "oxygen": 15,
+                    "energy": -8,
+                    "mentalHealth": 12,
+                    "stability": 10
+                },
+                "next": "rescue"
+            },
+            {
+                "text": "Attempt aggressive repairs",
+                "stats": {
+                    "oxygen": 10,
+                    "energy": -20,
+                    "mentalHealth": 5,
+                    "stability": -8
+                },
+                "next": "stationExplosion"
+            }
+        ]
+    },
+    "stabilizedStation": {
+        "title": "Equilibrium Achieved",
+        "text": [
+            "The station settles into a stable state. Alarms quiet, and the frantic pace of disaster management gives way to careful monitoring.",
+            "You've managed to keep critical systems running. The immediate crisis has passed, but resources remain limited."
+        ],
+        "choices": [
+            {
+                "text": "Send distress beacon",
+                "stats": {
+                    "oxygen": 5,
+                    "energy": -3,
+                    "mentalHealth": 10,
+                    "stability": 5
+                },
+                "next": "rescue"
+            }
+        ]
+    },
+    "perfectBalance": {
+        "title": "Optimal Synchronization",
+        "text": [
+            "Through meticulous recalibration, you achieve something extraordinary. Every system operates at perfect efficiency.",
+            "The unknown signal begins to harmonize with the station's systems rather than interfere. It's almost... cooperative.",
+            "As you analyze the pattern, a clearer message emerges. The signal wasn't hostile—it was a beacon. A map. An invitation."
+        ],
+        "choices": [
+            {
+                "text": "Accept the signal's guidance",
+                "stats": {
+                    "oxygen": 30,
+                    "energy": 30,
+                    "mentalHealth": 25,
+                    "stability": 30
+                },
+                "next": "trueEnding"
+            }
+        ]
+    },
+    "signalTakeover": {
+        "title": "Loss of Control",
+        "text": [
+            "The unknown signal floods through every system. Your consciousness feels scattered, pulled in a thousand directions.",
+            "The station's AI cascades into failure as the signal establishes dominance. You can feel something else now—something vast and patient.",
+            "Your last coherent thought is a question: Is it hostile, or merely... curious?"
+        ],
+        "choices": [],
+        "isEnding": true,
+        "endingType": "signalTakeover"
+    },
+    "oxygenDepletion": {
+        "title": "The Final Breath",
+        "text": [
+            "The looser oxygen restrictions felt like relief at first. But you miscalculated how quickly reserves would deplete.",
+            "The air grows thin. Your vision blurs. Alarms scream silently in the distance as consciousness slips away.",
+            "In your fading moments, you realize the station's fate is sealed—and yours with it."
+        ],
+        "choices": [],
+        "isEnding": true,
+        "endingType": "oxygenDepletion"
+    },
+    "stationExplosion": {
+        "title": "Critical Overload",
+        "text": [
+            "The reactor's output spirals beyond safe parameters. Feedback loops cascade through every connected system.",
+            "The core reaches critical mass. In the final moment before detonation, you understand the magnitude of your miscalculation.",
+            "A blinding flash. Then nothing."
+        ],
+        "choices": [],
+        "isEnding": true,
+        "endingType": "explosion"
+    },
+    "rescue": {
+        "title": "Salvation Arrives",
+        "text": [
+            "The rescue vessel docks perfectly with the station's emergency airlock.",
+            "A team of professionals pours in, taking control of the situation with practiced efficiency.",
+            "As you're led to safety, you look back at the station you fought so hard to save.",
+            "It's damaged, limping, but alive. And so are you."
+        ],
+        "choices": [],
+        "isEnding": true,
+        "endingType": "rescue"
+    },
+    "trueEnding": {
+        "title": "First Contact",
+        "text": [
+            "The signal guides you through a sequence of system reconfigurations. Each step feels intuitive, almost obvious in hindsight.",
+            "The station becomes a beacon of harmony. And then, through the void, you detect them: Other stations. Other beacons. A network.",
+            "You realize you've just activated something ancient—a failsafe, or perhaps an awakening.",
+            "The unknown signal resolves into a message, finally clear: 'Welcome. The silence is over.'"
+        ],
+        "choices": [],
+        "isEnding": true,
+        "endingType": "trueEnding"
     }
 }
