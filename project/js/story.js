@@ -6,6 +6,7 @@ import {
     parseHTML,
     saveJsonToLocalStorage
 } from "./utils.js";
+import { SETTINGS } from "./settings.js";
 
 gsap.registerPlugin(SplitText);
 
@@ -22,13 +23,20 @@ const STATS = Object.seal({
 });
 
 let currentNode = storyData.start;
+let currentTween = null;
+let resolveAdvance = null;
 
 async function renderText(lines) {
     const textElement = document.querySelector("#text-container p");
 
-    for (const line of lines) {
-        textElement.textContent = line;
+    for (let i = 0; i < lines.length; i++) {
+        textElement.textContent = lines[i];
+
         await animateText(textElement);
+
+        if (i < lines.length - 1) {
+            await waitForAdvance();
+        }
     }
 }
 
@@ -40,15 +48,62 @@ async function animateText(textElement) {
             smartWrap: true
         });
 
-        gsap.from(split.chars, {
+        currentTween = gsap.from(split.chars, {
             opacity: 0,
-            stagger: 0.03,
+            stagger: 0.03 * SETTINGS.textSpeed,
             onComplete: () => {
                 split.revert();
+                currentTween = null;
                 resolve();
             }
         });
     });
+}
+
+function waitForAdvance() {
+    return new Promise(resolve => {
+        resolveAdvance = resolve;
+
+        if (SETTINGS.autoplay) {
+            setTimeout(() => {
+                if (resolveAdvance === resolve) {
+                    resolveAdvance = null;
+                    resolve();
+                }
+            }, 1500 / SETTINGS.textSpeed);
+        }
+    });
+}
+
+function handleAdvanceInput() {
+    if (currentTween && currentTween.isActive()) {
+        currentTween.progress(1);
+        return;
+    }
+
+    if (resolveAdvance) {
+        resolveAdvance();
+        resolveAdvance = null;
+    }
+}
+
+function handleKeydown(e) {
+    if (["Enter", "Space"].includes(e.code)) {
+        e.preventDefault();
+        handleAdvanceInput();
+    }
+
+    const index = parseInt(e.key) - 1;
+
+    if (!isNaN(index) && 0 <= index && index < currentNode.choices.length) {
+        e.preventDefault();
+        handleChoice(currentNode.choices[index]);
+    }
+}
+
+function setupInputListeners() {
+    document.querySelector("#text-container").addEventListener("click", handleAdvanceInput);
+    document.addEventListener("keydown", handleKeydown);
 }
 
 function renderChoices(choices) {
@@ -112,7 +167,7 @@ function handleChoice(choice) {
 function updateStats(newStats) {
     for (const [key, value] of Object.entries(newStats)) {
         if (Object.hasOwn(STATS, key)) {
-            STATS[key] += newStats[key];
+            STATS[key] += value;
         }
     }
 
@@ -152,5 +207,6 @@ async function displayStoryNode() {
 export {
     STATS,
     renderStatElements,
+    setupInputListeners,
     displayStoryNode,
 }
