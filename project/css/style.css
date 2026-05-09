@@ -232,7 +232,7 @@ range-slider:hover::after {
     gap: 2rem;
 }
 
-.achivement {
+.achievement {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -240,7 +240,7 @@ range-slider:hover::after {
     padding: 2rem;
 }
 
-.achivement svg {
+.achievement svg {
     width: 6rem;
     aspect-ratio: 1/1;
     fill: white;
@@ -249,24 +249,24 @@ range-slider:hover::after {
     padding: 0.5rem;
 }
 
-.achivement div {
+.achievement div {
     display: flex;
     flex-direction: column;
     flex: 1;
 }
 
-.achivement div h2 {
+.achievement div h2 {
     font-family: "Orbitron", sans-serif;
     font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
-.achivement div p {
+.achievement div p {
     font-size: 1.25rem;
     color: rgba(255, 255, 255, 0.75);
 }
 
-.achivement div h3 {
+.achievement div h3 {
     font-size: 1.5rem;
     color: rgba(255, 255, 255, 0.85);
 }

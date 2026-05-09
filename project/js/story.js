@@ -111,8 +111,9 @@ function handleKeydown(e) {
     }
 
     const index = parseInt(e.key) - 1;
+    const choiceElement = document.querySelectorAll("#button-container button")[index];
 
-    if (!isNaN(index) && 0 <= index && index < currentNode.choices.length) {
+    if (!isNaN(index) && choiceElement && !choiceElement.classList.contains("hidden")) {
         e.preventDefault();
         handleChoice(currentNode.choices[index]);
     }
