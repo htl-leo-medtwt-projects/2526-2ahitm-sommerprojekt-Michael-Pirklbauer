@@ -1,5 +1,6 @@
 // ChatGPT generated code, modified by Michael Pirklbauer
 class RangeSlider extends HTMLElement {
+    #shadowRoot;
     #sliderElement;
     #fillElement;
     #thumbElement;
@@ -14,9 +15,9 @@ class RangeSlider extends HTMLElement {
 
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
+        this.#shadowRoot = this.attachShadow({ mode: "closed" });
 
-        this.shadowRoot.innerHTML = `
+        this.#shadowRoot.innerHTML = `
             <style>
                 :host {
                     --slider-height: 0.5rem;
@@ -80,9 +81,9 @@ class RangeSlider extends HTMLElement {
             </div>
         `;
 
-        this.#sliderElement = this.shadowRoot.querySelector(".slider");
-        this.#fillElement = this.shadowRoot.querySelector(".fill");
-        this.#thumbElement = this.shadowRoot.querySelector(".thumb");
+        this.#sliderElement = this.#shadowRoot.querySelector(".slider");
+        this.#fillElement = this.#shadowRoot.querySelector(".fill");
+        this.#thumbElement = this.#shadowRoot.querySelector(".thumb");
     }
 
     connectedCallback() {
