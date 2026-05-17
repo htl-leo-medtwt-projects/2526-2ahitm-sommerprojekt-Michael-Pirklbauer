@@ -5,10 +5,24 @@
  * @returns {string}
  */
 function stringToBinary(str, separator = '') {
-    return str
-        .split('')
-        .map(c => c.charCodeAt(0).toString(2).padStart(8, '0'))
+    return [...new TextEncoder().encode(str)]
+        .map(byte => byte.toString(2).padStart(8, '0'))
         .join(separator);
+}
+
+/**
+ * Converts a binary string to its text representation
+ * @param {string} binary 
+ * @param {string} separator 
+ * @returns {string}
+ */
+function binaryToString(binary, separator = '') {
+    const bytes = (separator
+        ? binary.split(separator)
+        : binary.match(/.{1,8}/g)
+    ).map(byte => parseInt(byte, 2));
+
+    return new TextDecoder().decode(new Uint8Array(bytes));
 }
 
 /**
@@ -42,9 +56,61 @@ function parseHTML(htmlString) {
     return elements.length === 1 ? elements[0] : elements;
 }
 
+/**
+ * Formats a date string into a localized date format
+ * @param {string} date 
+ * @returns {string}
+ */
+function formatDate(date) {
+    return new Date(date).toLocaleDateString();
+}
+
+/**
+ * Replaces all non-whitespace characters in a string with a replacement character
+ * @param {string} text 
+ * @param {string} replacement 
+ * @returns {string}
+ */
+function censorText(text, replacement = "█") {
+    return text.replace(/[^\s]/g, replacement);
+}
+
+/**
+ * Checks if the scrollbar is inside the element (overlay) or outside (takes space)
+ * @returns {boolean}
+ */
+function isScrollbarInsideElement() {
+    const div = document.createElement('div');
+
+    Object.assign(div.style, {
+        width: '100px',
+        height: '100px',
+        overflow: 'scroll',
+        position: 'absolute',
+        visibility: 'hidden',
+        boxSizing: 'content-box',
+        padding: '0',
+        margin: '0',
+        border: '0',
+    });
+
+    try {
+        document.body.appendChild(div);
+        return (div.clientWidth === div.offsetWidth);
+    } catch {
+        return false;
+    } finally {
+        div.remove();
+    }
+}
+
 export {
     stringToBinary,
+    binaryToString,
     saveJsonToLocalStorage,
     loadJsonFromLocalStorage,
     parseHTML,
+    formatDate,
+    censorText,
+    isScrollbarInsideElement,
 }

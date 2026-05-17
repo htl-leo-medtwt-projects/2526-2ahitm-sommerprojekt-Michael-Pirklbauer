@@ -30,6 +30,11 @@ body {
     color: white;
 }
 
+html {
+    scrollbar-width: none;
+    overflow: hidden;
+}
+
 /* Default style overrides */
 button,
 input {
@@ -230,6 +235,12 @@ range-slider:hover::after {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    max-height: calc((2 * 2rem + 6rem + 2rem) * 3);
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
 }
 
 .achievement {
@@ -238,6 +249,7 @@ range-slider:hover::after {
     justify-content: center;
     gap: 2rem;
     padding: 2rem;
+    scroll-snap-align: start;
 }
 
 .achievement svg {

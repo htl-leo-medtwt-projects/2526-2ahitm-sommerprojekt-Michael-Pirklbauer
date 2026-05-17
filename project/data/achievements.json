@@ -1,0 +1,37 @@
+{
+    "signalTakeover": {
+        "viewBox": "0 -960 960 960",
+        "path": "M326-171q-15-11-22-28l-92-241H40v-80h228l92 244 184-485q7-17 22-28t34-11q19 0 34 11t22 28l92 241h172v80H692l-92-244-184 485q-7 17-22 28t-34 11q-19 0-34-11Z",
+        "title": "Ending 1 Signal Takeover",
+        "description": "You die after taking over the station's signal and broadcasting your own message",
+        "date": null
+    },
+    "oxygenDepletion": {
+        "viewBox": "0 -960 960 960",
+        "path": "M480-160q-17 0-28.5-11.5T440-200v-160q0-17 11.5-28.5T480-400h100q17 0 28.5 11.5T620-360v160q0 17-11.528.5T580-160H480Zm20-60h60v-120h-60v120ZM680-80v-110q0-17 11.5-28.5T720-230h80v-30H680v-60h140q17 0 28.5 11.5T860-280v70q0 17-11.5 28.5T820-170h-80v30h120v60H680Zm-320-2Q237-96 158.5-187.5T80-408q0-100 79.5-217.5T400-880q132 112 209.5 212T710-480h-83q-22-63-79-137T400-774Q281-665 220.5-573T160-408q0 96 55.5 163.5T360-163v81Zm34-326Z",
+        "title": "Ending 2 Oxygen Depletion",
+        "description": "You die after running out of oxygen.",
+        "date": null
+    },
+    "stationExplosion": {
+        "viewBox": "0 -960 960 960",
+        "path": "m480-281 59-59h81v-81l59-59-59-59v-81h-81l-59-59-59 59h-81v81l-59 59 59 59v81h81l59 59Zm0 253L346-160H160v-186L28-480l132-134v-186h186l134-132 134 132h186v186l132 134-132 134v186H614L480-28Zm0-112 100-100h140v-140l100-100-100-100v-140H580L480-820 380-720H240v140L140-480l100 100v140h140l100 100Zm0-340Z",
+        "title": "Ending 3 Station Explosion",
+        "description": "You die after causing a critical failure that destroys the station",
+        "date": null
+    },
+    "rescue": {
+        "viewBox": "0 -960 960 960",
+        "path": "m226-559 78 33q14-28 29-54t33-52l-56-11-84 84Zm142 83 114 113q42-16 90-49t90-75q70-70 109.5-155.5T806-800q-72-5-158 34.5T492-656q-42 42-75 90t-49 90Zm155-121.5q0-33.5 23-56.5t57-23q34 0 57 23t23 56.5q0 33.5-23 56.5t-57 23q-34 0-57-23t-23-56.5ZM565-220l84-84-11-56q-26 18-52 32.5T532-299l33 79Zm313-653q19 121-23.5 235.5T708-419l20 99q4 20-2 39t-20 33L538-80l-84-197-171-171-197-84 167-168q14-14 33.5-20t39.5-2l99 20q104-104 218-147t235-24ZM157-321q35-35 85.5-35.5T328-322q35 35 34.5 85.5T327-151q-25 25-83.5 43T82-76q14-103 32-161.5t43-83.5Zm57 56q-10 10-20 36.5T180-175q27-4 53.5-13.5T270-208q12-12 13-29t-11-29q-12-12-29-11.5T214-265Z",
+        "title": "Ending 4 Rescue",
+        "description": "You survive and are rescued by the emergency shuttle",
+        "date": null
+    },
+    "trueEnding": {
+        "viewBox": "0 -960 960 960",
+        "path": "M155-155q-35-35-35-85v-400h80v400q0 17 11.5 28.5T240-200q17 0 28.5-11.5T280-240v-480q0-50 35-85t85-35q50 0 85 35t35 85v480q0 17 11.5 28.5T560-200q17 0 28.5-11.5T600-240v-480q0-50 35-85t85-35q50 0 85 35t35 85v400h-80v-400q0-17-11.5-28.5T720-760q-17 0-28.5 11.5T680-720v480q0 50-35 85t-85 35q-50 0-85-35t-35-85v-480q0-17-11.5-28.5T400-760q-17 0-28.5 11.5T360-720v480q0 50-35 85t-85 35q-50 0-85-35Z",
+        "title": "Ending 5 True Ending",
+        "description": "You achieve the true ending of the game",
+        "date": null
+    }
+}
