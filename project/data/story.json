@@ -322,7 +322,7 @@
         ],
         "choices": [],
         "isEnding": true,
-        "endingType": "explosion"
+        "endingType": "stationExplosion"
     },
     "rescue": {
         "title": "Salvation Arrives",

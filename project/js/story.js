@@ -7,6 +7,7 @@ import {
     saveJsonToLocalStorage
 } from "./utils.js";
 import { SETTINGS } from "./settings.js";
+import { unlockAndRenderAchievement } from "./achievements.js";
 
 gsap.registerPlugin(SplitText);
 
@@ -32,6 +33,14 @@ const DEFAULT_PROGRESS = Object.freeze({
 const PROGRESS = Object.seal({
     ...DEFAULT_PROGRESS,
     ...loadJsonFromLocalStorage("progress")
+});
+
+const ENDING_MAP = Object.freeze({
+    signalTakeover: "Signal Takeover",
+    oxygenDepletion: "Oxygen Depletion",
+    stationExplosion: "Station Explosion",
+    rescue: "Rescue",
+    trueEnding: "True Ending",
 });
 
 let currentNode = storyData[PROGRESS.currentNode];
@@ -229,9 +238,77 @@ function updateStatElements(newStats) {
     renderStatElements();
 }
 
+function renderEnding(type) {
+    const gamePage = document.getElementById("game");
+    const element = parseHTML(`
+        <div id="ending" class="window">
+            <h1>Unlocked Ending:</h1>
+            <h1>${ENDING_MAP[type] || type}</h1>
+            <button class="button" type="button">Restart</button>
+            <button class="button" data-route="/achievements" type="button">Achievements</button>
+            <button class="button" data-route="/" type="button">Landing Page</button>
+        </div>
+    `);
+
+    element.querySelector("button").addEventListener("click", (e) => {
+        gsap.to(element, {
+            opacity: 0,
+            y: 20,
+            duration: 0.4,
+            ease: "power2.in",
+            onComplete: () => {
+                element.remove();
+                playAgain();
+            }
+        });
+    });
+
+    gamePage.appendChild(element);
+
+    animateEnding(element);
+}
+
+function animateEnding(endingElement) {
+    gsap.fromTo(
+        endingElement,
+        {
+            opacity: 0,
+            y: 20,
+        },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: "power2.out",
+        }
+    );
+}
+
+function playAgain() {
+    Object.assign(PROGRESS, DEFAULT_PROGRESS);
+    Object.assign(STATS, DEFAULT_STATS);
+
+    if (SETTINGS.autosave) {
+        saveJsonToLocalStorage("progress", PROGRESS);
+        saveJsonToLocalStorage("stats", STATS);
+    }
+
+    renderStatElements();
+
+    currentNode = storyData[PROGRESS.currentNode];
+    setTimeout(displayStoryNode, 500);
+}
+
 async function displayStoryNode() {
     document.querySelector("#text-container h2").textContent = currentNode.title;
     await renderText(currentNode.text);
+
+    if (currentNode.isEnding) {
+        unlockAndRenderAchievement(currentNode.endingType);
+        renderEnding(currentNode.endingType);
+        return;
+    }
+
     renderChoices(currentNode.choices);
 }
 

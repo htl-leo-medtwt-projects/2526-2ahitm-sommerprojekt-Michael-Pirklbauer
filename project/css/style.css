@@ -16,6 +16,9 @@
 :root {
     --color-text: #ffffff;
     --color-background: #000000;
+    --window-bg: rgba(0, 140, 255, 0.44);
+    --bg-image: url(../images/background-1.jpg);
+    --bg-position: center left;
 }
 
 * {
@@ -56,7 +59,7 @@ a {
 .window {
     border-radius: 2.1875rem 0;
     border: 0.0625rem solid rgba(255, 255, 255, 0.20);
-    background: rgba(0, 140, 255, 0.44);
+    background: var(--window-bg);
     box-shadow: 0.0625rem 0.0625rem 0.25rem 0 rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(0.25rem);
 }
@@ -155,8 +158,8 @@ range-slider:hover::after {
     justify-content: center;
     height: 100vh;
     gap: 3rem;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../images/background-1.jpg);
-    background-position: center left;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), var(--bg-image);
+    background-position: var(--bg-position);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -219,8 +222,8 @@ range-slider:hover::after {
     justify-content: center;
     height: 100vh;
     gap: 3rem;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../images/background-1.jpg);
-    background-position: center left;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), var(--bg-image);
+    background-position: var(--bg-position);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -291,8 +294,8 @@ range-slider:hover::after {
     justify-content: center;
     height: 100vh;
     gap: 3rem;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(../images/background-1.jpg);
-    background-position: center left;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), var(--bg-image);
+    background-position: var(--bg-position);
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
@@ -491,4 +494,25 @@ range-slider:hover::after {
 #navigation button:hover::after {
     opacity: 1;
     visibility: visible;
+}
+
+#ending {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 3rem;
+    gap: 1rem;
+    font-family: Orbitron;
+    font-size: 1.3rem;
+}
+
+#ending button {
+    border-radius: 10rem;
+    transition: background-color 0.2s cubic-bezier(0.05, 0, 0, 1);
+    border: 0.15rem solid white;
+}
+
+#ending button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
 }

@@ -70,6 +70,18 @@ function unlockAchievement(id) {
     }
 }
 
+function unlockAndRenderAchievement(id) {
+    unlockAchievement(id);
+
+    const achievementElement = document.querySelector(`.achievement[data-achievement="${id}"]`);
+
+    achievementElement.replaceWith(renderAchievement({
+        ...achievementData[id],
+        date: ACHIEVEMENTS[id],
+        id: id,
+    }));
+}
+
 function setupAchievements() {
     const container = document.querySelector("#achievements-list");
     container.innerHTML = "";
@@ -91,5 +103,6 @@ function setupAchievements() {
 export {
     ACHIEVEMENTS,
     unlockAchievement,
+    unlockAndRenderAchievement,
     setupAchievements,
 }
