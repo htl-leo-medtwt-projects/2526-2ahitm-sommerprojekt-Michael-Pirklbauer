@@ -1,13 +1,9 @@
 import { setupNavigation } from "./navigation.js";
 import { setupSettings } from "./settings.js";
-import {
-    displayStoryNode,
-    renderStatElements,
-    setupInputListeners
-} from "./story.js";
+import { setupStory } from "./story.js";
+import { setupAchievements } from "./achievements.js";
 
 setupNavigation();
 setupSettings();
-renderStatElements();
-setupInputListeners();
-displayStoryNode();
+setupAchievements();
+setupStory();

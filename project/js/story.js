@@ -235,10 +235,30 @@ async function displayStoryNode() {
     renderChoices(currentNode.choices);
 }
 
+function setupStory() {
+    renderStatElements();
+    setupInputListeners();
+    const gamePage = document.getElementById("game");
+    let hasDisplayedNode = false;
+
+    document.addEventListener("pagechange", (e) => {
+        if (e.detail.routeId === "game" && !hasDisplayedNode) {
+            displayStoryNode();
+            hasDisplayedNode = true;
+        }
+    });
+
+    if (window.location.pathname === "/game") {
+        setTimeout(() => displayStoryNode(), 500);
+        hasDisplayedNode = true;
+    }
+}
+
 export {
     STATS,
     PROGRESS,
     renderStatElements,
     setupInputListeners,
     displayStoryNode,
+    setupStory,
 }

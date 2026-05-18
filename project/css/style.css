@@ -444,11 +444,6 @@ range-slider:hover::after {
     text-align: center;
 }
 
-#soundwave-container span {
-    letter-spacing: 0.3ch;
-    margin-right: -0.2ch;
-}
-
 #soundwave-container canvas {
     display: block;
     width: 25rem;

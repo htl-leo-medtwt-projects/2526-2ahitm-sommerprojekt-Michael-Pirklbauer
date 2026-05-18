@@ -94,6 +94,13 @@ async function navigate(path, pushState = true) {
     currentPage = nextPage;
     document.title = route.title;
 
+    const event = new CustomEvent("pagechange", {
+        detail: {
+            routeId: route.id
+        }
+    });
+    document.dispatchEvent(event);
+
     if (pushState) {
         history.pushState({}, "", path);
     }
