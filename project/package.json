@@ -26,11 +26,16 @@
   "main": "script.js",
   "scripts": {
     "dev": "vite",
+    "host": "vite --host",
+    "debug": "vite --debug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "gsap": "^3.14.2",
     "siriwave": "^2.4.0",
     "vite": "^8.0.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0"
   }
 }
