@@ -17,7 +17,7 @@
     --color-text: #ffffff;
     --color-background: #000000;
     --window-bg: rgba(0, 140, 255, 0.44);
-    --bg-image: url(../images/background-1.jpg);
+    --bg-image: url(../images/background-1-small.jpg);
     --bg-position: center left;
 }
 
@@ -494,6 +494,35 @@ range-slider:hover::after {
 #navigation button:hover::after {
     opacity: 1;
     visibility: visible;
+}
+
+#warning {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Orbitron;
+    padding: 1rem 3rem;
+    position: absolute;
+    top: 5%;
+    animation: blink 1s ease infinite alternate;
+    z-index: 100;
+}
+
+#warning svg {
+    fill: white;
+    width: 10rem;
+    aspect-ratio: 1/1;
+}
+
+@keyframes blink {
+    from {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 #ending {

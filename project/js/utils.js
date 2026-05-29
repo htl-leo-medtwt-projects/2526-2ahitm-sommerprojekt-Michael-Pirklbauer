@@ -104,6 +104,30 @@ function isScrollbarInsideElement() {
     }
 }
 
+/**
+ * Gets the entry with the lowest value from an object
+ * @param {object} obj 
+ * @returns {{ key: string, value: any }}
+ */
+function getLowestEntry(obj) {
+    const [key, value] = Object.entries(obj).reduce((min, entry) =>
+        entry[1] < min[1] ? entry : min
+    );
+
+    return { key, value };
+}
+
+/**
+ * Clamps a value between a minimum and maximum
+ * @param {number} value 
+ * @param {number} min 
+ * @param {number} max 
+ * @returns {number}
+ */
+function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+}
+
 export {
     stringToBinary,
     binaryToString,
@@ -113,4 +137,6 @@ export {
     formatDate,
     censorText,
     isScrollbarInsideElement,
+    getLowestEntry,
+    clamp
 }

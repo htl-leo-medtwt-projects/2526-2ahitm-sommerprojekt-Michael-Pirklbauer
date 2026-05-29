@@ -4,7 +4,9 @@ import SplitText from "gsap/SplitText";
 import {
     loadJsonFromLocalStorage,
     parseHTML,
-    saveJsonToLocalStorage
+    saveJsonToLocalStorage,
+    getLowestEntry,
+    clamp,
 } from "./utils.js";
 import { SETTINGS } from "./settings.js";
 import { unlockAndRenderAchievement } from "./achievements.js";
@@ -35,6 +37,13 @@ const PROGRESS = Object.seal({
     ...loadJsonFromLocalStorage("progress")
 });
 
+const STAT_MAP = Object.freeze({
+    oxygen: "Oxygen",
+    energy: "Energy",
+    mentalHealth: "Mental Health",
+    stability: "Stability",
+});
+
 const ENDING_MAP = Object.freeze({
     signalTakeover: "Signal Takeover",
     oxygenDepletion: "Oxygen Depletion",
@@ -46,6 +55,7 @@ const ENDING_MAP = Object.freeze({
 let currentNode = storyData[PROGRESS.currentNode];
 let currentTween = null;
 let resolveAdvance = null;
+let isWarningActive = false;
 
 async function renderText(lines) {
     const textElement = document.querySelector("#text-container p");
@@ -205,7 +215,7 @@ function handleChoice(choice) {
 function updateStats(newStats) {
     for (const [key, value] of Object.entries(newStats)) {
         if (Object.hasOwn(STATS, key)) {
-            STATS[key] += value;
+            STATS[key] = clamp(STATS[key] + value, 0, 100);
         }
     }
 
@@ -236,6 +246,60 @@ function animateSlider(slider, value) {
 function updateStatElements(newStats) {
     updateStats(newStats);
     renderStatElements();
+}
+
+async function renderWarning(warningMessage) {
+    const gamePage = document.getElementById("game");
+    const warningElement = parseHTML(`
+        <div id="warning" class="window">
+            <h1>Warning</h1>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                <path d="m40-120 440-760 440 760H40Zm138-80h604L480-720
+                178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320
+                480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240
+                480-240t28.5-11.5ZM440-360h80v-200h-80v200Zm40-100Z" />
+            </svg>
+            <h1>${warningMessage}</h1>
+        </div>
+    `);
+
+    gamePage.appendChild(warningElement);
+
+    await animateWarning(warningElement);
+}
+
+function animateWarning(warningElement) {
+    return new Promise(resolve => {
+        gsap.fromTo(
+            warningElement,
+            {
+                opacity: 0,
+                y: 20,
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                clearProps: "all",
+                onComplete: () => resolve(),
+            }
+        );
+    });
+}
+
+function removeWarning() {
+    const element = document.querySelector("#warning");
+
+    gsap.to(element, {
+        opacity: 0,
+        y: 20,
+        duration: 0.4,
+        ease: "power2.in",
+        onComplete: () => {
+            element.remove();
+        }
+    });
 }
 
 function renderEnding(type) {
@@ -299,11 +363,81 @@ function playAgain() {
     setTimeout(displayStoryNode, 500);
 }
 
+function animateBackgroundImage(newImage, newPosition) {
+    const game = document.querySelector("#game");
+
+    gsap.set([game.children, "#navigation"], {
+        zIndex: 10,
+    });
+
+    const overlay = document.createElement("div");
+    Object.assign(overlay.style, {
+        position: "fixed",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(${newImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: newPosition,
+        opacity: "0",
+        zIndex: "1",
+        pointerEvents: "none",
+    });
+
+    game.appendChild(overlay);
+
+    gsap.to(overlay, {
+        duration: 1,
+        opacity: 1,
+        ease: "power2.out",
+        onComplete: () => {
+            gsap.set(document.body, {
+                css: {
+                    "--bg-image": `url(${newImage})`,
+                    "--bg-position": newPosition
+                }
+            });
+            gsap.set([game.children, "#navigation"], {
+                clearProps: "zIndex",
+            });
+            game.removeChild(overlay);
+        }
+    });
+}
+
+function animateWindowBackgroundColor(targetColor) {
+    gsap.to(document.body, {
+        duration: 1,
+        ease: "power2.out",
+        css: {
+            "--window-bg": targetColor
+        }
+    });
+}
+
 async function displayStoryNode() {
+    const lowestStat = getLowestEntry(STATS);
+
+    if (lowestStat.value < 10 && !currentNode?.isEnding) {
+        currentNode = storyData[`${lowestStat.key}Ending`];
+        return displayStoryNode();
+    } else if (lowestStat.value < 35 && !isWarningActive && !currentNode?.isEnding) {
+        isWarningActive = true;
+        animateWindowBackgroundColor("rgba(255, 0, 0, 0.44)");
+        animateBackgroundImage("../images/background-2-small.jpg", "center");
+        await renderWarning(`${STAT_MAP[lowestStat.key]} Level Critical`);
+    } else if ((lowestStat.value >= 35 || currentNode?.isEnding) && isWarningActive) {
+        isWarningActive = false;
+        animateWindowBackgroundColor("rgba(0, 140, 255, 0.44)");
+        animateBackgroundImage("../images/background-1-small.jpg", "center left");
+        removeWarning();
+    }
+
     document.querySelector("#text-container h2").textContent = currentNode.title;
     await renderText(currentNode.text);
 
-    if (currentNode.isEnding) {
+    if (currentNode?.isEnding) {
         unlockAndRenderAchievement(currentNode.endingType);
         renderEnding(currentNode.endingType);
         return;
