@@ -195,6 +195,24 @@ class AudioVisualizer {
     }
 }
 
+const BACKGROUND_AUDIO = new AudioVisualizer("../audio/mythical-axiom.m4a", {
+    container: document.querySelector("#soundwave-container"),
+    loop: true,
+    volume: SETTINGS.musicVolume
+});
+
+function setupAudio() {
+    document.querySelector(`#landing-page [data-route="/game"]`).addEventListener("click", () => {
+        BACKGROUND_AUDIO.play();
+    }, { once: true });
+
+    document.querySelector(`#settings [data-setting="musicVolume"]`).addEventListener("input", (e) => {
+        BACKGROUND_AUDIO.volume = e.target.value;
+    });
+}
+
 export {
+    BACKGROUND_AUDIO,
     AudioVisualizer,
+    setupAudio,
 }
