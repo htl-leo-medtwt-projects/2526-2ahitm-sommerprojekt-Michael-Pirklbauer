@@ -55,6 +55,7 @@ const ENDING_MAP = Object.freeze({
 let currentNode = storyData[PROGRESS.currentNode];
 let currentTween = null;
 let resolveAdvance = null;
+let resolveEndingAdvance = null;
 let isWarningActive = false;
 
 async function renderText(lines) {
@@ -120,6 +121,11 @@ function handleAdvanceInput() {
     if (resolveAdvance) {
         resolveAdvance();
         resolveAdvance = null;
+    }
+
+    if (resolveEndingAdvance) {
+        resolveEndingAdvance();
+        resolveEndingAdvance = null;
     }
 }
 
@@ -315,13 +321,14 @@ function renderEnding(type) {
     `);
 
     element.querySelector("button").addEventListener("click", (e) => {
-        gsap.to(element, {
+        gsap.to([element, "#overlay"], {
             opacity: 0,
             y: 20,
             duration: 0.4,
             ease: "power2.in",
             onComplete: () => {
                 element.remove();
+                document.querySelector("#overlay").remove();
                 playAgain();
             }
         });
@@ -346,6 +353,89 @@ function animateEnding(endingElement) {
             ease: "power2.out",
         }
     );
+}
+
+function renderOverlay(messages) {
+    const overlay = parseHTML(`<div id="overlay"></div>`);
+    overlay.addEventListener("click", handleAdvanceInput);
+    document.querySelector("#game").appendChild(overlay);
+
+    gsap.fromTo(
+        overlay,
+        {
+            opacity: 0,
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            backdropFilter: "blur(0rem)",
+        },
+        {
+            opacity: 1,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backdropFilter: "blur(0.1rem)",
+            duration: 0.5,
+            ease: "power2.out",
+        }
+    );
+}
+
+async function renderMessages(messages) {
+    const elements = [];
+
+    for (const message of messages) {
+        const element = parseHTML(`
+            <h1 class="message window">${message}</h1>
+        `);
+
+        document.querySelector("#game").appendChild(element);
+        elements.push(element);
+
+        await animateMessage(element);
+
+        await waitForEndingAdvance();
+    }
+
+    await gsap.to(elements, {
+        opacity: 0,
+        y: -20,
+        duration: 0.4,
+        ease: "power2.in",
+        onComplete: () => {
+            elements.forEach(element => element.remove());
+        }
+    });
+}
+
+function animateMessage(element) {
+    return new Promise(resolve => {
+        gsap.fromTo(
+            element,
+            {
+                opacity: 0,
+                y: 20,
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                onComplete: () => resolve(),
+            }
+        );
+    });
+}
+
+function waitForEndingAdvance() {
+    return new Promise(resolve => {
+        resolveEndingAdvance = resolve;
+
+        if (SETTINGS.autoplay) {
+            setTimeout(() => {
+                if (resolveEndingAdvance === resolve) {
+                    resolveEndingAdvance = null;
+                    resolve();
+                }
+            }, 1500 / SETTINGS.textSpeed);
+        }
+    });
 }
 
 function playAgain() {
@@ -416,29 +506,47 @@ function animateWindowBackgroundColor(targetColor) {
     });
 }
 
-async function displayStoryNode() {
+async function applySceneBackground() {
+    if (currentNode?.backgroundImage) {
+        animateWindowBackgroundColor(currentNode.backgroundColor);
+        animateBackgroundImage(
+            currentNode.backgroundImage,
+            currentNode.backgroundPosition
+        );
+        updateStatElements(currentNode.finalStats);
+    }
+}
+
+async function showWarningState() {
     const lowestStat = getLowestEntry(STATS);
 
     if (lowestStat.value < 10 && !currentNode?.isEnding) {
-        currentNode = storyData[`${lowestStat.key}Ending`];
+        currentNode = storyData["oxygenDepletion"];
         return displayStoryNode();
-    } else if (lowestStat.value < 35 && !isWarningActive && !currentNode?.isEnding) {
+    } else if (lowestStat.value < 40 && !isWarningActive && !currentNode?.isEnding) {
         isWarningActive = true;
         animateWindowBackgroundColor("rgba(255, 0, 0, 0.44)");
         animateBackgroundImage("../images/background-2-small.jpg", "center");
         await renderWarning(`${STAT_MAP[lowestStat.key]} Level Critical`);
-    } else if ((lowestStat.value >= 35 || currentNode?.isEnding) && isWarningActive) {
+    } else if ((lowestStat.value >= 40 || currentNode?.isEnding) && isWarningActive) {
         isWarningActive = false;
         animateWindowBackgroundColor("rgba(0, 140, 255, 0.44)");
         animateBackgroundImage("../images/background-1-small.jpg", "center left");
         removeWarning();
     }
+}
+
+async function displayStoryNode() {
+    await applySceneBackground();
+    await showWarningState();
 
     document.querySelector("#text-container h2").textContent = currentNode.title;
     await renderText(currentNode.text);
 
     if (currentNode?.isEnding) {
         unlockAndRenderAchievement(currentNode.endingType);
+        renderOverlay();
+        await renderMessages(currentNode.messages);
         renderEnding(currentNode.endingType);
         return;
     }
