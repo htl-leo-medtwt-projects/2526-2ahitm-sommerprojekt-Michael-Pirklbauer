@@ -55,7 +55,6 @@ const ENDING_MAP = Object.freeze({
 let currentNode = storyData[PROGRESS.currentNode];
 let currentTween = null;
 let resolveAdvance = null;
-let resolveEndingAdvance = null;
 let isWarningActive = false;
 
 async function renderText(lines) {
@@ -121,11 +120,6 @@ function handleAdvanceInput() {
     if (resolveAdvance) {
         resolveAdvance();
         resolveAdvance = null;
-    }
-
-    if (resolveEndingAdvance) {
-        resolveEndingAdvance();
-        resolveEndingAdvance = null;
     }
 }
 
@@ -389,8 +383,7 @@ async function renderMessages(messages) {
         elements.push(element);
 
         await animateMessage(element);
-
-        await waitForEndingAdvance();
+        await waitForAdvance();
     }
 
     await gsap.to(elements, {
@@ -423,21 +416,6 @@ function animateMessage(element) {
     });
 }
 
-function waitForEndingAdvance() {
-    return new Promise(resolve => {
-        resolveEndingAdvance = resolve;
-
-        if (SETTINGS.autoplay) {
-            setTimeout(() => {
-                if (resolveEndingAdvance === resolve) {
-                    resolveEndingAdvance = null;
-                    resolve();
-                }
-            }, 1500 / SETTINGS.textSpeed);
-        }
-    });
-}
-
 function playAgain() {
     Object.assign(PROGRESS, DEFAULT_PROGRESS);
     Object.assign(STATS, DEFAULT_STATS);
@@ -448,6 +426,8 @@ function playAgain() {
     }
 
     renderStatElements();
+    animateWindowBackgroundColor("rgba(0, 140, 255, 0.44)");
+    animateBackgroundImage("../images/background-1-small.jpg", "center left");
 
     currentNode = storyData[PROGRESS.currentNode];
     setTimeout(displayStoryNode, 500);
