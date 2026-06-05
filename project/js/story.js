@@ -132,7 +132,7 @@ function handleKeydown(e) {
     const index = parseInt(e.key) - 1;
     const choiceElement = document.querySelectorAll("#button-container button")[index];
 
-    if (!isNaN(index) && choiceElement && !choiceElement.classList.contains("hidden")) {
+    if (!isNaN(index) && choiceElement && !choiceElement.classList.contains("hidden") && currentNode.choices[index]) {
         e.preventDefault();
         handleChoice(currentNode.choices[index]);
     }
@@ -315,14 +315,22 @@ function renderEnding(type) {
     `);
 
     element.querySelector("button").addEventListener("click", (e) => {
-        gsap.to([element, "#overlay"], {
+        gsap.to(element, {
             opacity: 0,
             y: 20,
+            duration: 0.4,
+            ease: "power2.in"
+        });
+
+        const overlay = document.querySelector("#overlay");
+
+        gsap.to(overlay, {
+            opacity: 0,
             duration: 0.4,
             ease: "power2.in",
             onComplete: () => {
                 element.remove();
-                document.querySelector("#overlay").remove();
+                overlay.remove();
                 playAgain();
             }
         });
