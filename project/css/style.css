@@ -31,6 +31,8 @@ body {
     font-family: "Futura PT Book", "Inter", sans-serif;
     background-color: black;
     color: white;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 html {
@@ -443,16 +445,30 @@ range-slider:hover::after {
     top: 5%;
     right: calc(3% + 5rem + 1rem);
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 #soundwave-container h2 {
     text-align: center;
+    order: 1;
 }
 
 #soundwave-container canvas {
     display: block;
     width: 25rem;
     height: 9.375rem;
+    order: 2;
+}
+
+#binary {
+    width: 25rem;
+    overflow: hidden;
+    order: 3;
+}
+
+#binary p {
+    text-wrap: nowrap;
 }
 
 /* Navigation Sidebar */

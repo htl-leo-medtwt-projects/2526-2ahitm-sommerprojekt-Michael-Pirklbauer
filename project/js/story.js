@@ -7,6 +7,7 @@ import {
     saveJsonToLocalStorage,
     getLowestEntry,
     clamp,
+    stringToBinary,
 } from "./utils.js";
 import { SETTINGS } from "./settings.js";
 import { unlockAndRenderAchievement } from "./achievements.js";
@@ -524,9 +525,33 @@ async function showWarningState() {
     }
 }
 
+async function animateBinaryText() {
+    const binaryElement = document.querySelector("#binary p");
+    let duration = 0;
+
+    binaryElement.textContent = stringToBinary(currentNode.text.join(" "), " ");
+
+    for (const text of currentNode.text) {
+        duration += 0.5 + text.length * (0.03 / SETTINGS.textSpeed);
+    }
+
+    gsap.fromTo(
+        binaryElement,
+        {
+            x: "0%",
+        },
+        {
+            x: "-100%",
+            ease: "linear",
+            duration: duration,
+        }
+    );
+}
+
 async function displayStoryNode() {
     await applySceneBackground();
     await showWarningState();
+    await animateBinaryText();
 
     document.querySelector("#text-container h2").textContent = currentNode.title;
     await renderText(currentNode.text);
