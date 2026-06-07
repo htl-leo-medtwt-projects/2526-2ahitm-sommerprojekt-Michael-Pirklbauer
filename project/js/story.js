@@ -442,7 +442,23 @@ function playAgain() {
     setTimeout(displayStoryNode, 500);
 }
 
-function animateBackgroundImage(newImage, newPosition) {
+async function animateBackgroundImage(newImage, newPosition) {
+    const img = new Image();
+    img.src = newImage;
+
+    try {
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+        });
+    } catch (error) {
+        return;
+    }
+
+    if (img.decode) {
+        await img.decode();
+    }
+
     const game = document.querySelector("#game");
 
     gsap.set([game.children, "#navigation"], {
