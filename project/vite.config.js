@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite'
 import * as babel from '@babel/core'
+import fs from 'fs'
+import path from 'path'
 
 const isDebug =
     process.argv.includes('--debug') ||
@@ -92,6 +94,60 @@ function exposeToGlobalPlugin() {
             };
         }
     };
+}
+
+function preloadAssets(folders) {
+    function getFilesRecursive(dir) {
+        const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+        return entries.flatMap(entry => {
+            const fullPath = path.join(dir, entry.name);
+
+            if (entry.isDirectory()) {
+                return getFilesRecursive(fullPath);
+            }
+
+            return [fullPath];
+        });
+    }
+
+    function preloadFolder({
+        type,
+        basePath,
+        include = (filePath) => true,
+        root = process.cwd()
+    }) {
+        const dir = path.resolve(root, basePath);
+
+        return getFilesRecursive(dir)
+            .map(file => {
+                const relativePath = path
+                    .relative(dir, file)
+                    .replace(/\\/g, '/');
+
+                return { file, relativePath };
+            })
+            .filter(({ relativePath }) => include(relativePath))
+            .map(({ relativePath }) => {
+                return {
+                    tag: 'link',
+                    injectTo: 'head',
+                    attrs: {
+                        rel: 'preload',
+                        as: type,
+                        href: `${basePath}/${relativePath}`
+                    }
+                };
+            });
+    }
+
+    return {
+        name: 'preload-assets',
+
+        transformIndexHtml() {
+            return folders.flatMap(preloadFolder);
+        }
+    }
 }
 
 export default defineConfig({
