@@ -53,6 +53,8 @@ const ENDING_MAP = Object.freeze({
     trueEnding: "True Ending",
 });
 
+const imageCache = new Set();
+
 let currentNode = storyData[PROGRESS.currentNode];
 let currentTween = null;
 let resolveAdvance = null;
@@ -442,23 +444,41 @@ function playAgain() {
     setTimeout(displayStoryNode, 500);
 }
 
-async function animateBackgroundImage(newImage, newPosition) {
-    const img = new Image();
-    img.src = newImage;
-
-    try {
-        await new Promise((resolve, reject) => {
-            img.onload = resolve;
-            img.onerror = reject;
-        });
-    } catch (error) {
+function preloadNextSceneImages(node) {
+    if (!node?.choices) {
         return;
     }
+
+    for (const choice of node.choices) {
+        const nextNode = storyData[choice.next];
+
+        if (nextNode?.backgroundImage) {
+            preloadImage(nextNode.backgroundImage);
+        }
+    }
+}
+
+async function preloadImage(src) {
+    if (!src || imageCache.has(src)) {
+        return;
+    }
+
+    const img = new Image();
+    img.src = src;
+
+    await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+    });
 
     if (img.decode) {
         await img.decode();
     }
 
+    imageCache.add(src);
+}
+
+function animateBackgroundImage(newImage, newPosition) {
     const game = document.querySelector("#game");
 
     gsap.set([game.children, "#navigation"], {
@@ -512,14 +532,16 @@ function animateWindowBackgroundColor(targetColor) {
 }
 
 async function applySceneBackground() {
-    if (currentNode?.backgroundImage) {
-        animateWindowBackgroundColor(currentNode.backgroundColor);
-        animateBackgroundImage(
-            currentNode.backgroundImage,
-            currentNode.backgroundPosition
-        );
-        updateStatElements(currentNode.finalStats);
+    if (!currentNode?.backgroundImage) {
+        return;
     }
+
+    animateWindowBackgroundColor(currentNode.backgroundColor);
+    animateBackgroundImage(
+        currentNode.backgroundImage,
+        currentNode.backgroundPosition
+    );
+    updateStatElements(currentNode.finalStats);
 }
 
 async function showWarningState() {
@@ -565,6 +587,8 @@ async function animateBinaryText() {
 }
 
 async function displayStoryNode() {
+    preloadNextSceneImages(currentNode);
+
     await applySceneBackground();
     await showWarningState();
     await animateBinaryText();
