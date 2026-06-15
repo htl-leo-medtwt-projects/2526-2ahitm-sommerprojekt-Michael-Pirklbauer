@@ -16,10 +16,20 @@ class AudioVisualizer {
     constructor(audio, options = {}) {
         const {
             container,
-            loop = false,
-            volume = 1,
             width = 400,
             height = 150,
+            style = "ios",
+            color = "#ffffff",
+            speed = 0.05,
+            amplitude = 0,
+            curveDefinition = [
+                { attenuation: -2, lineWidth: 2, opacity: 0.1 },
+                { attenuation: -6, lineWidth: 2, opacity: 0.2 },
+                { attenuation: 4, lineWidth: 2, opacity: 0.4 },
+                { attenuation: 2, lineWidth: 2, opacity: 0.6 },
+                { attenuation: 1, lineWidth: 2.5, opacity: 1 },
+            ],
+            ...audioOptions
         } = options;
 
         if (!container) {
@@ -30,38 +40,22 @@ class AudioVisualizer {
             ? new Audio(audio)
             : audio;
 
-        Object.assign(this.#audio, {
-            loop: loop,
-            volume: volume,
-            preload: "auto"
-        });
+        Object.assign(this.#audio, audioOptions);
 
         this.#visualizer = new SiriWave({
             container,
             width,
             height,
-            style: "ios",
-            color: "#ffffff",
-            speed: 0.05,
+            style,
+            color,
+            speed,
             autostart: true,
-            amplitude: 0,
-            curveDefinition: [
-                { attenuation: -2, lineWidth: 2, opacity: 0.1 },
-                { attenuation: -6, lineWidth: 2, opacity: 0.2 },
-                { attenuation: 4, lineWidth: 2, opacity: 0.4 },
-                { attenuation: 2, lineWidth: 2, opacity: 0.6 },
-                { attenuation: 1, lineWidth: 2.5, opacity: 1 },
-            ],
+            amplitude,
+            curveDefinition
         });
 
         this.#audio.addEventListener("ended", () => {
             this.stop();
-        });
-
-        this.#audio.addEventListener("pause", () => {
-            if (!this.#audio.ended) {
-                this.#stopAnimation();
-            }
         });
     }
 
@@ -107,8 +101,7 @@ class AudioVisualizer {
             sum += this.#dataArray[i];
         }
 
-        const average =
-            sum / this.#dataArray.length;
+        const average = sum / this.#dataArray.length;
 
         this.#visualizer.setAmplitude(
             Math.max(
@@ -186,12 +179,272 @@ class AudioVisualizer {
         this.#initialized = false;
     }
 
-    get audio() {
-        return this.#audio;
+    load() {
+        this.#audio.load();
     }
 
-    get isPlaying() {
-        return !this.#audio.paused && !this.#audio.ended;
+    addEventListener(type, listener, options) {
+        return this.#audio.addEventListener(type, listener, options);
+    };
+
+    removeEventListener(type, listener, options) {
+        return this.#audio.removeEventListener(type, listener, options);
+    };
+
+    dispatchEvent(event) {
+        return this.#audio.dispatchEvent(event);
+    };
+
+    get volume() {
+        return this.#audio.volume;
+    }
+
+    set volume(value) {
+        this.#audio.volume = value;
+    }
+
+    get muted() {
+        return this.#audio.muted;
+    }
+
+    set muted(value) {
+        this.#audio.muted = value;
+    }
+
+    get currentTime() {
+        return this.#audio.currentTime;
+    }
+
+    set currentTime(value) {
+        this.#audio.currentTime = value;
+    }
+
+    get playbackRate() {
+        return this.#audio.playbackRate;
+    }
+
+    set playbackRate(value) {
+        this.#audio.playbackRate = value;
+    }
+
+    get loop() {
+        return this.#audio.loop;
+    }
+
+    set loop(value) {
+        this.#audio.loop = value;
+    }
+
+    get src() {
+        return this.#audio.src;
+    }
+
+    set src(value) {
+        this.#audio.src = value;
+    }
+
+    get autoplay() {
+        return this.#audio.autoplay;
+    }
+
+    set autoplay(value) {
+        this.#audio.autoplay = value;
+    }
+
+    get preload() {
+        return this.#audio.preload;
+    }
+
+    set preload(value) {
+        this.#audio.preload = value;
+    }
+
+    get crossOrigin() {
+        return this.#audio.crossOrigin;
+    }
+
+    set crossOrigin(value) {
+        this.#audio.crossOrigin = value;
+    }
+
+    get duration() {
+        return this.#audio.duration;
+    }
+
+    get paused() {
+        return this.#audio.paused;
+    }
+
+    get ended() {
+        return this.#audio.ended;
+    }
+
+    get currentSrc() {
+        return this.#audio.currentSrc;
+    }
+
+    get readyState() {
+        return this.#audio.readyState;
+    }
+
+    get networkState() {
+        return this.#audio.networkState;
+    }
+
+    get buffered() {
+        return this.#audio.buffered;
+    }
+
+    get seekable() {
+        return this.#audio.seekable;
+    }
+
+    get played() {
+        return this.#audio.played;
+    }
+
+    get onplay() {
+        return this.#audio.onplay;
+    }
+
+    set onplay(fn) {
+        this.#audio.onplay = fn;
+    }
+
+    get onpause() {
+        return this.#audio.onpause;
+    }
+
+    set onpause(fn) {
+        this.#audio.onpause = fn;
+    }
+
+    get onended() {
+        return this.#audio.onended;
+    }
+
+    set onended(fn) {
+        this.#audio.onended = fn;
+    }
+
+    get onplaying() {
+        return this.#audio.onplaying;
+    }
+
+    set onplaying(fn) {
+        this.#audio.onplaying = fn;
+    }
+
+    get onwaiting() {
+        return this.#audio.onwaiting;
+    }
+
+    set onwaiting(fn) {
+        this.#audio.onwaiting = fn;
+    }
+
+    get oncanplay() {
+        return this.#audio.oncanplay;
+    }
+
+    set oncanplay(fn) {
+        this.#audio.oncanplay = fn;
+    }
+
+    get oncanplaythrough() {
+        return this.#audio.oncanplaythrough;
+    }
+
+    set oncanplaythrough(fn) {
+        this.#audio.oncanplaythrough = fn;
+    }
+
+    get ontimeupdate() {
+        return this.#audio.ontimeupdate;
+    }
+
+    set ontimeupdate(fn) {
+        this.#audio.ontimeupdate = fn;
+    }
+
+    get onseeking() {
+        return this.#audio.onseeking;
+    }
+
+    set onseeking(fn) {
+        this.#audio.onseeking = fn;
+    }
+
+    get onseeked() {
+        return this.#audio.onseeked;
+    }
+
+    set onseeked(fn) {
+        this.#audio.onseeked = fn;
+    }
+
+    get onvolumechange() {
+        return this.#audio.onvolumechange;
+    }
+
+    set onvolumechange(fn) {
+        this.#audio.onvolumechange = fn;
+    }
+
+    get onloadstart() {
+        return this.#audio.onloadstart;
+    }
+
+    set onloadstart(fn) {
+        this.#audio.onloadstart = fn;
+    }
+
+    get onloadeddata() {
+        return this.#audio.onloadeddata;
+    }
+
+    set onloadeddata(fn) {
+        this.#audio.onloadeddata = fn;
+    }
+
+    get onloadedmetadata() {
+        return this.#audio.onloadedmetadata;
+    }
+
+    set onloadedmetadata(fn) {
+        this.#audio.onloadedmetadata = fn;
+    }
+
+    get onprogress() {
+        return this.#audio.onprogress;
+    }
+
+    set onprogress(fn) {
+        this.#audio.onprogress = fn;
+    }
+
+    get onstalled() {
+        return this.#audio.onstalled;
+    }
+
+    set onstalled(fn) {
+        this.#audio.onstalled = fn;
+    }
+
+    get onsuspend() {
+        return this.#audio.onsuspend;
+    }
+
+    set onsuspend(fn) {
+        this.#audio.onsuspend = fn;
+    }
+
+    get onerror() {
+        return this.#audio.onerror;
+    }
+
+    set onerror(fn) {
+        this.#audio.onerror = fn;
     }
 }
 
