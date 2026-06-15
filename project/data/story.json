@@ -300,7 +300,20 @@
         ],
         "choices": [],
         "isEnding": true,
-        "endingType": "signalTakeover"
+        "endingType": "signalTakeover",
+        "backgroundImage": "../images/background-8-small.jpg",
+        "backgroundPosition": "center",
+        "backgroundColor": "rgba(139, 0, 255, 0.44)",
+        "messages": [
+            "You have no Energy left.",
+            "You died."
+        ],
+        "finalStats": {
+            "oxygen": 0,
+            "energy": -100,
+            "mentalHealth": 0,
+            "stability": 0
+        }
     },
     "oxygenDepletion": {
         "title": "The Final Breath",
@@ -311,7 +324,20 @@
         ],
         "choices": [],
         "isEnding": true,
-        "endingType": "oxygenDepletion"
+        "endingType": "oxygenDepletion",
+        "backgroundImage": "../images/background-22-small.jpg",
+        "backgroundPosition": "center",
+        "backgroundColor": "rgba(255, 0, 131, 0.44)",
+        "messages": [
+            "You have no Oxygen left.",
+            "You died."
+        ],
+        "finalStats": {
+            "oxygen": -100,
+            "energy": 0,
+            "mentalHealth": 0,
+            "stability": 0
+        }
     },
     "stationExplosion": {
         "title": "Critical Overload",
@@ -322,7 +348,20 @@
         ],
         "choices": [],
         "isEnding": true,
-        "endingType": "stationExplosion"
+        "endingType": "stationExplosion",
+        "backgroundImage": "../images/background-14-small.jpg",
+        "backgroundPosition": "right",
+        "backgroundColor": "rgba(255, 96, 0, 0.44)",
+        "messages": [
+            "You have no Stability left.",
+            "You died."
+        ],
+        "finalStats": {
+            "oxygen": 0,
+            "energy": 0,
+            "mentalHealth": 0,
+            "stability": -100
+        }
     },
     "rescue": {
         "title": "Salvation Arrives",
@@ -334,7 +373,20 @@
         ],
         "choices": [],
         "isEnding": true,
-        "endingType": "rescue"
+        "endingType": "rescue",
+        "backgroundImage": "../images/background-24-small.jpg",
+        "backgroundPosition": "center",
+        "backgroundColor": "rgba(0, 255, 219, 0.44)",
+        "messages": [
+            "You have been rescued.",
+            "You survived."
+        ],
+        "finalStats": {
+            "oxygen": 0,
+            "energy": 0,
+            "mentalHealth": -100,
+            "stability": 0
+        }
     },
     "trueEnding": {
         "title": "First Contact",
@@ -346,6 +398,19 @@
         ],
         "choices": [],
         "isEnding": true,
-        "endingType": "trueEnding"
+        "endingType": "trueEnding",
+        "backgroundImage": "../images/background-4.jpg",
+        "backgroundPosition": "center",
+        "backgroundColor": "rgba(250, 37, 55, 0.44)",
+        "messages": [
+            "You have reactivated the station.",
+            "You survived."
+        ],
+        "finalStats": {
+            "oxygen": -100,
+            "energy": -100,
+            "mentalHealth": -100,
+            "stability": -100
+        }
     }
 }
