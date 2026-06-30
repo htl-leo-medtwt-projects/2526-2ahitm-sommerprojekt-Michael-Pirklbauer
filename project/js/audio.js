@@ -105,7 +105,7 @@ class AudioVisualizer {
 
         this.#visualizer.setAmplitude(
             Math.max(
-                0.02,
+                0,
                 Math.min(1, average / 128)
             )
         );
